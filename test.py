@@ -1,7 +1,8 @@
 import sqlite3
 import pandas as pd
-connection = sqlite3.connect('data/WebCrawledSandwichRecipes/recipes.sql')
+connection = sqlite3.connect('./data/recipe_ingredients.db')
 
-query = "SELECT * FROM recipes"
+query = "SELECT * FROM descriptiveRecipe"
 df = pd.read_sql(query, connection)
-print(df)
+df.to_csv('./data/recipe_ingredients.csv', index=False)
+print(df.head())
