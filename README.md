@@ -1,2 +1,2 @@
 # Case-Based-Reasoning-System-Prototyp
-Cocktail recipe stuff
+In this Project we aim to develop a Cooking Recipe Recommendation System. We augmented the RecipeNLG dataset and created a Case Base out of it. Then we used the hierarchical structure of the data to create a pseudohierarchical Case library. Then we implement a Case Retrieval a Case Adaptation a Case Evaluation and Case learning. We use a CLI to interact with the user.
