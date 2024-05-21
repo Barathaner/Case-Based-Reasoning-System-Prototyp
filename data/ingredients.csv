@@ -1,4 +1,4 @@
-Recipe Name,Ingredient,Amount,Unit,Basic Taste,food category
+recipename,ingredient,amount,unit,foodcategory,basictaste
 Papa'S Rellenos-Stuffed Potatoes,baked potatoes,3.0,g,vegetable,neutral
 Papa'S Rellenos-Stuffed Potatoes,butter or margarine,2.0,g,dairy,fatty
 Papa'S Rellenos-Stuffed Potatoes,milk,2.0,ml,dairy,neutral
