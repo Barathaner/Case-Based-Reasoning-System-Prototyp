@@ -44,10 +44,10 @@ def index():
         course_type = request.form['course_type']
         dietary_preference = request.form['dietary_preference']
         cuisine_origin = request.form['cuisine_origin']
-        basic_taste_include = request.form.getlist('basic_taste_include')
-        basic_taste_exclude = request.form.getlist('basic_taste_exclude')
-        food_category_include = request.form.getlist('food_category_include')
-        food_category_exclude = request.form.getlist('food_category_exclude')
+        basic_taste_include = ', '.join(request.form.getlist('basic_taste_include'))
+        basic_taste_exclude = ', '.join(request.form.getlist('basic_taste_exclude'))
+        food_category_include = ', '.join(request.form.getlist('food_category_include'))
+        food_category_exclude = ', '.join(request.form.getlist('food_category_exclude'))
 
         adapted_recipe = cbr.generate_recipe(recipe_name, course_type, dietary_preference, cuisine_origin,
                                              basic_taste_include, basic_taste_exclude,
