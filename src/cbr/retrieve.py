@@ -44,7 +44,7 @@ def similarity_recipe(constraints, recipe):
     recipe_cuisine=recipe.cuisine
     recipe_course_type=recipe.course_type
     recipe_dietary_preference=recipe.dietary_preference
-    
+
 
     for key in constraints:
         if key == "dietary_preference":
@@ -151,9 +151,8 @@ def retrieve(constraints, cl):
                 #then we remove the basic taste constraint
                 elif relaxed_constraints['ingredients']['include'][i]['basic_taste']:
                    relaxed_constraints['ingredients']['include'][i]['basic_taste']=None
-                #then we remove the ingredient
+                #then we remove the ingredient name constraint
                 elif relaxed_constraints['ingredients']['include'][i]['name']:
-                    #relaxed_constraints['ingredients']['include'].pop(i)
                     relaxed_constraints['ingredients']['include'][i]['name']=None
         #next we remove the exclude ingredients constraints if they are specified 
         elif relaxed_constraints['ingredients'] and len(relaxed_constraints['ingredients']['exclude'])>0:
@@ -163,7 +162,6 @@ def retrieve(constraints, cl):
                 elif relaxed_constraints['ingredients']['exclude'][i]['basic_taste']:
                    relaxed_constraints['ingredients']['exclude'][i]['basic_taste']=None
                 elif relaxed_constraints['ingredients']['exclude'][i]['name']:
-                    #relaxed_constraints['ingredients']['include'].pop(i)
                     relaxed_constraints['ingredients']['exclude'][i]['name']=None
         #next we remove the cuisine constraints if they are specified
         elif relaxed_constraints['cuisine'] and len(relaxed_constraints['cuisine']['include'])>0:
