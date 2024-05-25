@@ -44,7 +44,7 @@ def similarity_recipe(constraints, recipe):
     recipe_cuisine=recipe.cuisine
     recipe_course_type=recipe.course_type
     recipe_dietary_preference=recipe.dietary_preference
-    
+
 
     for key in constraints:
         if key == "dietary_preference":
