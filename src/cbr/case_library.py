@@ -1,14 +1,20 @@
 from lxml import etree, objectify
 class CookingRecipe:
-    def __init__(self, name, course_type, dietary_preference, cuisine, ingredients, instructions,utility):
+    def __init__(self, name, course_type, dietary_preference, cuisine, ingredients, instructions,utility,derivation,evaluation,UaS,UaF,success_count,failure_count):
         self.name = str(name).lower()
         self.course_type = str(course_type).lower()
         self.dietary_preference = str(dietary_preference).lower()
         self.cuisine = str(cuisine).lower()
         self.ingredients = ingredients
         self.instructions = instructions
-        #added the rest of attributes because we will need them in retrieval, adaptation, evaluation
+        #add missing attributes
         self.utility=utility
+        self.derivation=derivation
+        self.evaluation=evaluation
+        self.UaS=UaS
+        self.UaF=UaF
+        self.success_count=success_count
+        self.failure_count=failure_count
 
     def to_xml(self):
         """Converts the recipe object into an lxml element."""
@@ -17,10 +23,13 @@ class CookingRecipe:
         recipe_element.course_type = self.course_type
         recipe_element.dietary_preference = self.dietary_preference
         recipe_element.cuisine = self.cuisine
-        #add the rest of attributes
-        recipe_element.utility = self.utility 
+        recipe_element.utility = self.utility
         recipe_element.derivation = self.derivation
-    
+        recipe_element.evaluation = self.evaluation
+        recipe_element.UaS = self.UaS
+        recipe_element.UaF = self.UaF
+        recipe_element.success_count = self.success_count
+        recipe_element.failure_count = self.failure_count
         
         ingredients_element = objectify.SubElement(recipe_element, "ingredients")
         for ingredient in self.ingredients:
@@ -42,6 +51,13 @@ class CookingRecipe:
                 f"Course Type: {self.course_type.title()}\n"
                 f"Dietary Preference: {self.dietary_preference.title()}\n"
                 f"Cuisine: {self.cuisine.title()}\n"
+                f"utility: {self.utility.title()}\n"
+                f"derivation: {self.derivation.title()}\n"
+                f"evaluation: {self.evaluation.title()}\n"
+                f"UaS: {self.UaS.title()}\n"
+                f"UaF: {self.UaF.title()}\n"
+                f"failure_count: {self.failure_count.title()}\n"
+                f"success_count: {self.success_count.title()}\n"
                 f"Ingredients: {ingredients_str}\n"
                 f"Instructions: {instructions_str}\n"
                 f"Utility:{self.utility}") #add the rest of attributes if needed
@@ -51,8 +67,13 @@ def parse_recipe_from_xml(xml_element):
     course_type = xml_element.findtext('course_type')
     dietary_preference = xml_element.findtext('dietary_preference')
     cuisine = xml_element.findtext('cuisine')
-    #add the rest of attributes if needed
     utility = xml_element.findtext('utility')
+    derivation = xml_element.findtext('derivation')
+    evaluation = xml_element.findtext('evaluation')
+    UaS = xml_element.findtext('UaS')
+    UaF = xml_element.findtext('UaF')
+    failure_count = xml_element.findtext('failure_count')
+    success_count = xml_element.findtext('success_count')
 
     ingredients = []
     for ingredient in xml_element.xpath('./ingredients/ingredient'):
@@ -67,7 +88,7 @@ def parse_recipe_from_xml(xml_element):
 
     instructions = [step.text for step in xml_element.xpath('./instructions/step')]
 
-    return CookingRecipe(name, course_type, dietary_preference, cuisine, ingredients, instructions,utility)
+    return CookingRecipe(name, course_type, dietary_preference, cuisine, ingredients, instructions,utility,derivation,evaluation,UaS,UaF,failure_count,success_count)
 
 
 class CaseLibrary:
