@@ -1,6 +1,6 @@
 from lxml import etree, objectify
 class CookingRecipe:
-    def __init__(self, name, course_type, dietary_preference, cuisine, ingredients, instructions,utility,derivation,evaluation,UaS,UaF,success_count,failure_count):
+    def __init__(self, name, course_type, dietary_preference, cuisine, ingredients, instructions,utility):
         self.name = str(name).lower()
         self.course_type = str(course_type).lower()
         self.dietary_preference = str(dietary_preference).lower()
@@ -9,12 +9,6 @@ class CookingRecipe:
         self.instructions = instructions
         #added the rest of attributes because we will need them in retrieval, adaptation, evaluation
         self.utility=utility
-        self.derivation=derivation
-        self.evaluation=evaluation
-        self.UaS=UaS
-        self.UaF=UaF
-        self.success_count=success_count
-        self.failure_count=failure_count
 
     def to_xml(self):
         """Converts the recipe object into an lxml element."""
@@ -176,22 +170,22 @@ class ConstraintQueryBuilder:
         if include:
             for ing in include:
                 parts = []
-                if 'name' in ing:
+                if ing['name']:
                     parts.append(f"name='{ing['name']}'")
-                if 'basic_taste' in ing:
+                if ing['basic_taste']:
                     parts.append(f"@basic_taste='{ing['basic_taste']}'")
-                if 'food_category' in ing:
+                if ing['food_category']:
                     parts.append(f"@food_category='{ing['food_category']}'")
                 self.constraints["ingredients"].append(f"({' and '.join(parts)})")
 
         if exclude:
             for ing in exclude:
                 parts = []
-                if 'name' in ing:
+                if ing['name']:
                     parts.append(f"name!='{ing['name']}'")
-                if 'basic_taste' in ing:
+                if ing['basic_taste']:
                     parts.append(f"@basic_taste!='{ing['basic_taste']}'")
-                if 'food_category' in ing:
+                if ing['food_category']:
                     parts.append(f"@food_category!='{ing['food_category']}'")
                 self.constraints["ingredients"].append(f"({' and '.join(parts)})")
 
