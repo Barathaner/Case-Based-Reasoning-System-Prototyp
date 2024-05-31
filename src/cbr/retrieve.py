@@ -8,7 +8,6 @@ from cbr.case_library import CaseLibrary, ConstraintQueryBuilder
 random.seed(10)
 sim_weights={"dp_match":1,"ct_match":0.85,"cuisine_match":0.65,"ingr_match":0.5,"ingr_name_match":0.5,"ingr_basic_taste_match":0.5,"ingr_food_cat_match":0.5}
 CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.xml')
-#CASELIBRARYPATH = r'C:\Users\AFEK\Downloads\CBR 2024\Case-Based-Reasoning-System-Prototyp\data\case_library.xml'
 cl=CaseLibrary(CASELIBRARYPATH)
 
 def search_ingredient(cl, name=None, basic_taste=None, food_category=None):
