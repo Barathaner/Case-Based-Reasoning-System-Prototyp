@@ -1,12 +1,20 @@
 from lxml import etree, objectify
 class CookingRecipe:
-    def __init__(self, name, course_type, dietary_preference, cuisine, ingredients, instructions):
+    def __init__(self, name, course_type, dietary_preference, cuisine, ingredients, instructions,utility,derivation,evaluation,UaS,UaF,success_count,failure_count):
         self.name = str(name).lower()
         self.course_type = str(course_type).lower()
         self.dietary_preference = str(dietary_preference).lower()
         self.cuisine = str(cuisine).lower()
         self.ingredients = ingredients
         self.instructions = instructions
+        #add missing attributes
+        self.utility=utility
+        self.derivation=derivation
+        self.evaluation=evaluation
+        self.UaS=UaS
+        self.UaF=UaF
+        self.success_count=success_count
+        self.failure_count=failure_count
 
     def to_xml(self):
         """Converts the recipe object into an lxml element."""
@@ -15,6 +23,13 @@ class CookingRecipe:
         recipe_element.course_type = self.course_type
         recipe_element.dietary_preference = self.dietary_preference
         recipe_element.cuisine = self.cuisine
+        recipe_element.utility = self.utility
+        recipe_element.derivation = self.derivation
+        recipe_element.evaluation = self.evaluation
+        recipe_element.UaS = self.UaS
+        recipe_element.UaF = self.UaF
+        recipe_element.success_count = self.success_count
+        recipe_element.failure_count = self.failure_count
         
         ingredients_element = objectify.SubElement(recipe_element, "ingredients")
         for ingredient in self.ingredients:
@@ -36,14 +51,29 @@ class CookingRecipe:
                 f"Course Type: {self.course_type.title()}\n"
                 f"Dietary Preference: {self.dietary_preference.title()}\n"
                 f"Cuisine: {self.cuisine.title()}\n"
+                f"utility: {self.utility.title()}\n"
+                f"derivation: {self.derivation.title()}\n"
+                f"evaluation: {self.evaluation.title()}\n"
+                f"UaS: {self.UaS.title()}\n"
+                f"UaF: {self.UaF.title()}\n"
+                f"failure_count: {self.failure_count.title()}\n"
+                f"success_count: {self.success_count.title()}\n"
                 f"Ingredients: {ingredients_str}\n"
-                f"Instructions: {instructions_str}")
+                f"Instructions: {instructions_str}\n"
+                f"Utility:{self.utility}") #add the rest of attributes if needed
 
 def parse_recipe_from_xml(xml_element):
     name = xml_element.findtext('name')
     course_type = xml_element.findtext('course_type')
     dietary_preference = xml_element.findtext('dietary_preference')
     cuisine = xml_element.findtext('cuisine')
+    utility = xml_element.findtext('utility')
+    derivation = xml_element.findtext('derivation')
+    evaluation = xml_element.findtext('evaluation')
+    UaS = xml_element.findtext('UaS')
+    UaF = xml_element.findtext('UaF')
+    failure_count = xml_element.findtext('failure_count')
+    success_count = xml_element.findtext('success_count')
 
     ingredients = []
     for ingredient in xml_element.xpath('./ingredients/ingredient'):
@@ -58,7 +88,7 @@ def parse_recipe_from_xml(xml_element):
 
     instructions = [step.text for step in xml_element.xpath('./instructions/step')]
 
-    return CookingRecipe(name, course_type, dietary_preference, cuisine, ingredients, instructions)
+    return CookingRecipe(name, course_type, dietary_preference, cuisine, ingredients, instructions,utility,derivation,evaluation,UaS,UaF,failure_count,success_count)
 
 
 class CaseLibrary:
@@ -79,6 +109,8 @@ class CaseLibrary:
             ct_node = objectify.SubElement(dp_node, "course_type", type=recipe.course_type)
             cuisine_node = objectify.SubElement(ct_node, "cuisine", type=recipe.cuisine)
             recipes_node = objectify.SubElement(cuisine_node, "cookingrecipes")
+            #We should add the rest of attributes as default parameters ? 
+            
         else:
             recipes_node = parent[0].xpath("./cookingrecipes")[0]
 
@@ -132,24 +164,51 @@ class ConstraintQueryBuilder:
         self.constraints = {
             "dietary_preference": [],
             "course_type": [],
-            "cuisine": []
+            "cuisine": [],
+            "ingredients":[] #added ingredients constraints
         }
 
     def add_dietary_preference_constraint(self, include=None, exclude=None):
         self._add_constraint("dietary_preference", include, exclude)
-
+        
     def add_course_type_constraint(self, include=None, exclude=None):
         self._add_constraint("course_type", include, exclude)
-
+        
     def add_cuisine_constraint(self, include=None, exclude=None):
         self._add_constraint("cuisine", include, exclude)
+        
+    def add_ingredients_constraint(self,include=None,exclude=None):
+        self._add_complex_ingredient_constraint(include,exclude)
 
     def _add_constraint(self, category, include=None, exclude=None):
         """General method to add constraints based on inclusion or exclusion lists."""
         if include:
-            self.constraints[category] += [f"@type='{item.lower()}'" for item in include]
+            self.constraints[category] += [f"@type='{item.lower()}'" for item in include] # we will have to reconstruct again the include and exclude lists
         if exclude:
             self.constraints[category] += [f"@type!='{item.lower()}'" for item in exclude]
+    def _add_complex_ingredient_constraint(self, include=None, exclude=None):
+        """Method to add complex ingredient constraints based on name, basic taste, and food category."""
+        if include:
+            for ing in include:
+                parts = []
+                if ing['name']:
+                    parts.append(f"name='{ing['name']}'")
+                if ing['basic_taste']:
+                    parts.append(f"@basic_taste='{ing['basic_taste']}'")
+                if ing['food_category']:
+                    parts.append(f"@food_category='{ing['food_category']}'")
+                self.constraints["ingredients"].append(f"({' and '.join(parts)})")
+
+        if exclude:
+            for ing in exclude:
+                parts = []
+                if ing['name']:
+                    parts.append(f"name!='{ing['name']}'")
+                if ing['basic_taste']:
+                    parts.append(f"@basic_taste!='{ing['basic_taste']}'")
+                if ing['food_category']:
+                    parts.append(f"@food_category!='{ing['food_category']}'")
+                self.constraints["ingredients"].append(f"({' and '.join(parts)})")
 
     def build(self):
         """Build the XPath query from the accumulated constraints."""
@@ -164,7 +223,10 @@ class ConstraintQueryBuilder:
         
         if self.constraints['cuisine']:
             cuisine_query = " or ".join(self.constraints['cuisine'])
-            parts.append(f"cuisine[{cuisine_query}]/cookingrecipes/cookingrecipe")
+            parts.append(f"cuisine[{cuisine_query}]/cookingrecipes/cookingrecipe") #why did you add this ??
+        if self.constraints['ingredients']:
+            ingredients_query = " or ".join(self.constraints['ingredients'])
+            parts.append(f"ingredients[{ingredients_query}]")
 
         if not parts:
             return ".//cookingrecipe"
@@ -177,4 +239,4 @@ class ConstraintQueryBuilder:
 
     def reset(self):
         """Reset the accumulated constraints."""
-        self.constraints = {"dietary_preference": [], "course_type": [], "cuisine": []}
+        self.constraints = {"dietary_preference": [], "course_type": [], "cuisine": [], "ingredients":[]}
