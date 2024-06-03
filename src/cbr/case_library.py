@@ -23,13 +23,13 @@ class CookingRecipe:
         recipe_element.course_type = self.course_type
         recipe_element.dietary_preference = self.dietary_preference
         recipe_element.cuisine = self.cuisine
-        recipe_element.utility = self.utility
-        recipe_element.derivation = self.derivation
-        recipe_element.evaluation = self.evaluation
-        recipe_element.UaS = self.UaS
-        recipe_element.UaF = self.UaF
-        recipe_element.success_count = self.success_count
-        recipe_element.failure_count = self.failure_count
+        recipe_element.utility = str(self.utility)
+        recipe_element.derivation = str(self.derivation)
+        recipe_element.evaluation = str(self.evaluation)
+        recipe_element.UaS = str(self.UaS)
+        recipe_element.UaF = str(self.UaF)
+        recipe_element.success_count = str(self.success_count)
+        recipe_element.failure_count = str(self.failure_count)
         
         ingredients_element = objectify.SubElement(recipe_element, "ingredients")
         for ingredient in self.ingredients:
@@ -45,7 +45,9 @@ class CookingRecipe:
 
     def __str__(self):
         """Returns a string representation of the recipe in a readable format."""
-        ingredients_str = ', '.join([f"{ing['amount']} {ing['unit']} of {ing['name']} ({ing['basic_taste']} taste, {ing['food_category']})" for ing in self.ingredients])
+        ingredients_str =""
+        if self.ingredients is not None and len(self.ingredients) > 0:
+            ingredients_str = ', '.join([f"{ing['amount']} {ing['unit']} of {ing['name']} ({ing['basic_taste']} taste, {ing['food_category']})" for ing in self.ingredients])
         instructions_str = ' -> '.join(self.instructions)
         return (f"Recipe Name: {self.name.title()}\n"
                 f"Course Type: {self.course_type.title()}\n"
