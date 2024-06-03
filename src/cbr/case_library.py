@@ -167,7 +167,14 @@ class ConstraintQueryBuilder:
             "dietary_preference": [],
             "course_type": [],
             "cuisine": [],
-            "ingredients":[] #added ingredients constraints
+            "ingredients": {
+                'include': {"name": [],
+                            "food_category": [],
+                            "basic_taste": []},
+                'exclude': {"name": [],
+                            "food_category": [],
+                            "basic_taste": []}
+            }
         }
 
     def add_dietary_preference_constraint(self, include=None, exclude=None):
@@ -192,25 +199,21 @@ class ConstraintQueryBuilder:
         """Method to add complex ingredient constraints based on name, basic taste, and food category."""
         if include:
             for ing in include:
-                parts = []
                 if ing['name']:
-                    parts.append(f"name='{ing['name']}'")
+                    self.constraints["ingredients"]['include']['name'].append(f"'{ing['name']}'")
                 if ing['basic_taste']:
-                    parts.append(f"@basic_taste='{ing['basic_taste']}'")
+                    self.constraints["ingredients"]['include']['basic_taste'].append(f"'{ing['basic_taste']}'")
                 if ing['food_category']:
-                    parts.append(f"@food_category='{ing['food_category']}'")
-                self.constraints["ingredients"].append(f"({' and '.join(parts)})")
+                    self.constraints["ingredients"]['include']['food_category'].append(f"'{ing['food_category']}'")
 
         if exclude:
             for ing in exclude:
-                parts = []
                 if ing['name']:
-                    parts.append(f"name!='{ing['name']}'")
+                    self.constraints["ingredients"]['exclude']['name'].append(f"'{ing['name']}'")
                 if ing['basic_taste']:
-                    parts.append(f"@basic_taste!='{ing['basic_taste']}'")
+                    self.constraints["ingredients"]['exclude']['basic_taste'].append(f"'{ing['basic_taste']}'")
                 if ing['food_category']:
-                    parts.append(f"@food_category!='{ing['food_category']}'")
-                self.constraints["ingredients"].append(f"({' and '.join(parts)})")
+                    self.constraints["ingredients"]['exclude']['food_category'].append(f"'{ing['food_category']}'")
 
     def build(self):
         """Build the XPath query from the accumulated constraints."""
@@ -225,17 +228,34 @@ class ConstraintQueryBuilder:
         
         if self.constraints['cuisine']:
             cuisine_query = " or ".join(self.constraints['cuisine'])
-            parts.append(f"cuisine[{cuisine_query}]/cookingrecipes/cookingrecipe") #why did you add this ??
-        if self.constraints['ingredients']:
-            ingredients_query = " or ".join(self.constraints['ingredients'])
-            parts.append(f"ingredients[{ingredients_query}]")
+            parts.append(f"cuisine[{cuisine_query}]/cookingrecipes//cookingrecipe") #why did you add this ??
+        if self.constraints['ingredients']['include']:
+            if self.constraints['ingredients']['include']['name']:
+                for ing_name in self.constraints['ingredients']['include']['name']:
+                    parts[-1] += f"[descendant::ingredient[text()={ing_name}]]"
+            if self.constraints['ingredients']['include']['basic_taste']:
+                for basic_taste in self.constraints['ingredients']['include']['basic_taste']:
+                    parts[-1] += f"[descendant::ingredient[@basic_taste={basic_taste}]]"
+            if self.constraints['ingredients']['include']['food_category']:
+                for food_category in self.constraints['ingredients']['include']['food_category']:
+                    parts[-1] += f"[descendant::ingredient[@food_category={food_category}]]"
+        if self.constraints['ingredients']['exclude']:
+            if self.constraints['ingredients']['exclude']['name']:
+                for ing_name in self.constraints['ingredients']['exclude']['name']:
+                    parts[-1] += f"[descendant::ingredient[text()!={ing_name}]]"
+            if self.constraints['ingredients']['exclude']['basic_taste']:
+                for basic_taste in self.constraints['ingredients']['exclude']['basic_taste']:
+                    parts[-1] += f"[descendant::ingredient[@basic_taste!={basic_taste}]]"
+            if self.constraints['ingredients']['exclude']['food_category']:
+                for food_category in self.constraints['ingredients']['exclude']['food_category']:
+                    parts[-1] += f"[descendant::ingredient[@food_category!={food_category}]]"
 
         if not parts:
             return ".//cookingrecipe"
         
         # Build the full path by chaining the parts
         full_query = "/".join(parts)
-        xpath_query = f"//{full_query}"
+        xpath_query = f"./{full_query}"
         print("Debug XPath Query:", xpath_query)  # Debugging line to see the built query
         return xpath_query
 

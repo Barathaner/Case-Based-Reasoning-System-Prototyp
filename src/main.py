@@ -5,6 +5,7 @@ import os
 
 
 CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.xml')
+CASELIBRARYPATH = r"C:\Users\gerar\PycharmProjects\Case-Based-Reasoning-System-Prototyp\data\case_library.xml"
 
 cl=CaseLibrary(CASELIBRARYPATH)
 constraints= {"dietary_preference": None,
