@@ -2,6 +2,7 @@ from datasetcreation.create_case_library import create_case_library
 from cbr.case_library import CaseLibrary, CookingRecipe,ConstraintQueryBuilder,parse_recipe_from_xml
 from cbr.retrieve import *
 import os
+from cbr.adaptation import *
 
 
 CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.xml')
@@ -61,8 +62,64 @@ if __name__ == "__main__":
         #######################EXAMPLECODE_______END_____####################
         query_builder.reset()
         recipes, sim_list, index_retrieved, retrieved_case = retrieve( constraints, cl,query_builder)
-        for recipe in recipes:
-                print(recipe)
+        #for recipe in recipes:
+                #print(recipe)
+        print("---------------retrieve case---------------")
         print(retrieved_case)
         print("Done") 
         #{'include': [{'name':'butter or margarine ','food_category':None,'basic_taste':None}], 'exclude':[]}
+        
+
+
+
+
+        print("---------------adapted case---------------")
+        query = {
+        "ingredients": {'include':['egg'],'exclude':['flour']},
+        "food_category": ["sweetener", "fruit"],
+        "basic_taste": ["umami", "spicy"]
+        }
+        CONSTRAINT = ConstraintQueryBuilder()
+        CASE_LIBRARY = CaseLibrary(CASELIBRARYPATH)
+
+        query["ingredients"]["include"] = [search_ingredient(cl, ingr) for ingr in query["ingredients"]["include"]]
+        #recipes = random.choices(cl.findall(CONSTRAINT), k=5)
+
+        # Displaying the ingredients and steps of the original recipe
+        #print(f"Ingredients before: {[e.text for e in recipes[0].ingredients]}")
+        print("Ingredients before:")
+        for e in recipes[0].ingredients:
+                print(e["name"])
+        print("Steps before:")
+        print(recipes[0].instructions)
+        """
+        for step in recipes[0].instructions:
+                step_text = step
+                if step_text is not None:
+                        step_text = step_text.replace("\n", "")
+                print(step_text)
+        """
+
+        # Adapt the recipe based on the query
+        adapted_recipe = adapt(cl, query, recipes)
+        print("--------------------")
+
+        # Displaying the adapted ingredients and steps
+        #print(f"Ingredients after: {[e.text for e in adapted_recipe.ingredients]}")
+        print("Ingredients after:")
+        for e in adapted_recipe.ingredients:
+                for key, value in e.items():
+                        if key=="name":
+                                print(value)
+        print("Steps after:")
+        print(adapted_recipe.instructions)
+
+        """
+        for step in output.instructions:
+                step_text = step
+                if step_text is not None:
+                        step_text = step_text.replace("\n", "")
+                print(step_text)
+        """
+
+        print("Done")
