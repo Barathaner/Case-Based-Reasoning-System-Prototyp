@@ -8,10 +8,10 @@ random.seed(10)
 sim_weights={"dp_match":1,"ct_match":0.85,"cuisine_match":0.65,"ingr_match":0.5,"ingr_name_match":0.5,"ingr_basic_taste_match":0.5,"ingr_food_cat_match":0.5}
 def update_sim1(key,constraints,attribute,w):
     if len(constraints[key]['exclude'])>0 or len(constraints[key]['include'])>0:
-        if len(constraints[key]['include'])>0 and attribute in [item.split('=')[1] for item in constraints[key]['include']]:
+        if len(constraints[key]['include'])>0 and attribute in constraints[key]['include']:
             sim += sim_weights[w]
             cumulative_norm_score += sim_weights[w]
-        elif len(constraints[key]['exclude'])>0 and attribute in [item.split('=')[1] for item in constraints[key]['exclude']]:
+        elif len(constraints[key]['exclude'])>0 and attribute in constraints[key]['exclude']:
             sim -= sim_weights[w]
             cumulative_norm_score += sim_weights[w]
         else:
@@ -21,10 +21,10 @@ def update_sim1(key,constraints,attribute,w):
         sim += sim_weights[w]
         cumulative_norm_score += sim_weights[w]
 def update_sim2(constraints,attribute,w,ingredient):
-    if ingredient[attribute] in [item.split('=')[1] for item in constraints['ingredient']['include'][attribute]]:
+    if len(constraints['ingredient']['include'][attribute])>0 and ingredient[attribute] in constraints['ingredient']['include'][attribute]:
         sim += sim_weights[w]
         cumulative_norm_score += sim_weights[w]
-    elif ingredient[attribute] in [item.split('=')[1] for item in constraints['ingredient']['exclude'][attribute]]:
+    elif len(constraints['ingredient']['exclude'][attribute])>0 and ingredient[attribute] in constraints['ingredient']['exclude'][attribute]:
         sim -= sim_weights[w]
         cumulative_norm_score += sim_weights[w]
     else:
@@ -65,11 +65,11 @@ def similarity_recipe(constraints, recipe):
         if key == "cuisine":
             update_sim1(key,constraints,recipe_cuisine,'cuisine_match')
         if key == "ingredients":
-            if constraints[key]['include']['name'] or constraints[key]['exclude']['name']:
+            if len(constraints[key]['include']['name'])>0 or len(constraints[key]['exclude']['name'])>0:
                 update_sim2(constraints,'name','ingr_name_match',recipe_ingredients)
-            if constraints[key]['include']['basic_taste'] or constraints[key]['exclude']['basic_taste']:
+            if len(constraints[key]['include']['basic_taste'])>0 or len(constraints[key]['exclude']['basic_taste'])>0:
                 update_sim2(constraints,'basic_taste','ingr_basic_taste_match',recipe_ingredients)
-            if constraints[key]['include']['food_category'] or constraints[key]['exclude']['food_category']:
+            if len(constraints[key]['include']['food_category'])>0 or len(constraints[key]['exclude']['food_category'])>0:
                 update_sim2(constraints,'food_category','ingr_food_cat_match',recipe_ingredients)
             else:  
                 sim += sim_weights["ingr_match"]
@@ -81,59 +81,53 @@ def similarity_recipe(constraints, recipe):
 def retrieve(constraints, cl,query_builder):
     
     # Add constraints from the query
-    if constraints["dietary_preference"]:
-        query_builder.add_dietary_preference_constraint(include=constraints['dietary_preference']['include'],exclude=constraints['dietary_preference']['include'])
-    if constraints["course_type"]:
-        query_builder.add_course_type_constraint(include=constraints['course_type']['include'],exclude=constraints['course_type']['exclude'])
-    if constraints["cuisine"]:
-        query_builder.add_cuisine_constraint(include=constraints["cuisine"]['include'],exclude=constraints["cuisine"]['exclude'])
-    if constraints["ingredients"]:
-        query_builder.add_ingredients_constraint(include=constraints['ingredients']['include'],exclude=constraints['ingredients']['exclude'])
+    query_builder.add_dietary_preference_constraint(include=constraints['dietary_preference']['include'],exclude=constraints['dietary_preference']['include'])
+    query_builder.add_course_type_constraint(include=constraints['course_type']['include'],exclude=constraints['course_type']['exclude'])
+    query_builder.add_cuisine_constraint(include=constraints["cuisine"]['include'],exclude=constraints["cuisine"]['exclude'])
+    query_builder.add_ingredients_constraint(include=constraints['ingredients']['include'],exclude=constraints['ingredients']['exclude'])
 
     xpath_query = query_builder.build()
     list_recipes = cl.find_recipes_by_constraint_query(xpath_query)
     relaxed_constraints=constraints.copy()
     while len(list_recipes)<5:
         #we start by removing include ingredients constraints if they are specified
-        if  relaxed_constraints['ingredients'] and len(relaxed_constraints['ingredients']['include'])>0:
-            for i in range(len(relaxed_constraints['ingredients']['include'])):
-                # we start by relaxing the food category constraint
-                if relaxed_constraints['ingredients']['include'][i]['food_category']:
-                   relaxed_constraints['ingredients']['include'][i]['food_category']=None
-                #then we remove the basic taste constraint
-                elif relaxed_constraints['ingredients']['include'][i]['basic_taste']:
-                   relaxed_constraints['ingredients']['include'][i]['basic_taste']=None
-                #then we remove the ingredient name constraint
-                elif relaxed_constraints['ingredients']['include'][i]['name']:
-                    relaxed_constraints['ingredients']['include'][i]['name']=None
+        if  len(relaxed_constraints['ingredients']['include'])>0:
+            # we start by relaxing the food category constraints
+            if len(relaxed_constraints['ingredients']['include']['food_category'])>0:
+                relaxed_constraints['ingredients']['include']['food_category']=[]
+            #then we remove the basic taste constraints
+            elif len(relaxed_constraints['ingredients']['include']['basic_taste'])>0:
+                relaxed_constraints['ingredients']['include']['basic_taste']=[]
+            #then we remove the ingredient name constraints
+            elif len(relaxed_constraints['ingredients']['include']['name'])>0:
+                relaxed_constraints['ingredients']['include'][i]['name']=[]
         #next we remove the exclude ingredients constraints if they are specified 
-        elif relaxed_constraints['ingredients'] and len(relaxed_constraints['ingredients']['exclude'])>0:
-            for i in range (len(relaxed_constraints['ingredients']['exclude'])):
-                if relaxed_constraints['ingredients']['exclude'][i]['food_category']:
-                    relaxed_constraints['ingredients']['exclude'][i]['food_category']=None
-                elif relaxed_constraints['ingredients']['exclude'][i]['basic_taste']:
-                   relaxed_constraints['ingredients']['exclude'][i]['basic_taste']=None
-                elif relaxed_constraints['ingredients']['exclude'][i]['name']:
-                    relaxed_constraints['ingredients']['exclude'][i]['name']=None
+        elif len(relaxed_constraints['ingredients']['exclude'])>0:
+            if len(relaxed_constraints['ingredients']['exclude']['food_category'])>0:
+                relaxed_constraints['ingredients']['exclude']['food_category']=[]
+            elif len(relaxed_constraints['ingredients']['exclude']['basic_taste'])>0:
+                relaxed_constraints['ingredients']['exclude']['basic_taste']=[]
+            elif len(relaxed_constraints['ingredients']['exclude']['name'])>0:
+                relaxed_constraints['ingredients']['exclude']['name']=[]
         #next we remove the cuisine constraints if they are specified
-        elif relaxed_constraints['cuisine'] and len(relaxed_constraints['cuisine']['include'])>0:
+        elif len(relaxed_constraints['cuisine']['include'])>0:
             relaxed_constraints['cuisine']['include']=[]
-        elif relaxed_constraints['cuisine'] and len(relaxed_constraints['cuisine']['exclude'])>0:
+        elif len(relaxed_constraints['cuisine']['exclude'])>0:
             relaxed_constraints['cuisine']['exclude']=[]
         #probably this won't happen but just in case
-        elif relaxed_constraints['course_type'] and  len(relaxed_constraints['course_type']['include'])>0:
+        elif len(relaxed_constraints['course_type']['include'])>0:
             relaxed_constraints['course_type']['include']=[]
-        elif relaxed_constraints['course_type'] and len(relaxed_constraints['course_type']['exclude'])>0:
+        elif len(relaxed_constraints['course_type']['exclude'])>0:
             relaxed_constraints['course_type']['exclude']=[]
         query_builder.reset()
         # Add constraints from the query
-        if relaxed_constraints["dietary_preference"]:
+        if relaxed_constraints["dietary_preference"]['include'] or relaxed_constraints["dietary_preference"]['exclude']:
             query_builder.add_dietary_preference_constraint(include=relaxed_constraints['dietary_preference']['include'],exclude=relaxed_constraints['dietary_preference']['include'])
-        if relaxed_constraints["course_type"]:
+        if relaxed_constraints["course_type"]['include'] or relaxed_constraints["course_type"]['exclude']:
             query_builder.add_course_type_constraint(include=relaxed_constraints['course_type']['include'],exclude=relaxed_constraints['course_type']['exclude'])
-        if relaxed_constraints["cuisine"]:
+        if relaxed_constraints["cuisine"]['include'] or relaxed_constraints["cuisine"]['exclude']:
             query_builder.add_cuisine_constraint(include=relaxed_constraints["cuisine"]['include'],exclude=relaxed_constraints["cuisine"]['exclude'])
-        if relaxed_constraints["ingredients"]:
+        if relaxed_constraints["ingredients"]['include'] or relaxed_constraints["ingredients"]['exclude']:
             query_builder.add_ingredients_constraint(include=relaxed_constraints['ingredients']['include'],exclude=relaxed_constraints['ingredients']['exclude'])
             
         xpath_query = query_builder.build()
