@@ -3,13 +3,9 @@ import random
 from pathlib import Path
 
 import numpy as np
-from cbr.case_library import CaseLibrary, ConstraintQueryBuilder
 
 random.seed(10)
 sim_weights={"dp_match":1,"ct_match":0.85,"cuisine_match":0.65,"ingr_match":0.5,"ingr_name_match":0.5,"ingr_basic_taste_match":0.5,"ingr_food_cat_match":0.5}
-CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.xml')
-#CASELIBRARYPATH = r'C:\Users\AFEK\Downloads\CBR 2024\Case-Based-Reasoning-System-Prototyp\data\case_library.xml'
-cl=CaseLibrary(CASELIBRARYPATH)
 
 def search_ingredient(cl, name=None, basic_taste=None, food_category=None):
     """Search for an ingredient based on its name, basic taste, or food category."""
@@ -125,8 +121,7 @@ def similarity_recipe(constraints, recipe):
     normalized_sim = sim / cumulative_norm_score if cumulative_norm_score else 1.0
     return normalized_sim * float(recipe.utility)
 
-def retrieve(constraints, cl):
-    query_builder = ConstraintQueryBuilder()
+def retrieve(constraints, cl,query_builder):
     
     # Add constraints from the query
     if constraints["dietary_preference"]:
@@ -173,7 +168,7 @@ def retrieve(constraints, cl):
             relaxed_constraints['course_type']['include']=[]
         elif relaxed_constraints['course_type'] and len(relaxed_constraints['course_type']['exclude'])>0:
             relaxed_constraints['course_type']['exclude']=[]
-        query_builder = ConstraintQueryBuilder()
+        query_builder.reset()
         # Add constraints from the query
         if relaxed_constraints["dietary_preference"]:
             query_builder.add_dietary_preference_constraint(include=relaxed_constraints['dietary_preference']['include'],exclude=relaxed_constraints['dietary_preference']['include'])
