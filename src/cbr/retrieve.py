@@ -6,6 +6,30 @@ import numpy as np
 
 random.seed(10)
 sim_weights={"dp_match":1,"ct_match":0.85,"cuisine_match":0.65,"ingr_match":0.5,"ingr_name_match":0.5,"ingr_basic_taste_match":0.5,"ingr_food_cat_match":0.5}
+def update_sim1(key,constraints,attribute,w):
+    if len(constraints[key]['exclude'])>0 or len(constraints[key]['include'])>0:
+        if len(constraints[key]['include'])>0 and attribute in [item.split('=')[1] for item in constraints[key]['include']]:
+            sim += sim_weights[w]
+            cumulative_norm_score += sim_weights[w]
+        elif len(constraints[key]['exclude'])>0 and attribute in [item.split('=')[1] for item in constraints[key]['exclude']]:
+            sim -= sim_weights[w]
+            cumulative_norm_score += sim_weights[w]
+        else:
+            # In case the constraint is not fulfilled we add the weight to the normalization score
+            cumulative_norm_score += sim_weights[w]
+    else:
+        sim += sim_weights[w]
+        cumulative_norm_score += sim_weights[w]
+def update_sim2(constraints,attribute,w,ingredient):
+    if ingredient[attribute] in [item.split('=')[1] for item in constraints['ingredient']['include'][attribute]]:
+        sim += sim_weights[w]
+        cumulative_norm_score += sim_weights[w]
+    elif ingredient[attribute] in [item.split('=')[1] for item in constraints['ingredient']['exclude'][attribute]]:
+        sim -= sim_weights[w]
+        cumulative_norm_score += sim_weights[w]
+    else:
+        # In case the constraint is not fulfilled we add the weight to the normalization score
+        cumulative_norm_score += sim_weights[w]
 
 def similarity_recipe(constraints, recipe):
     """
@@ -35,76 +59,18 @@ def similarity_recipe(constraints, recipe):
 
     for key in constraints:
         if key == "dietary_preference":
-            if constraints[key] is not None:
-                if recipe_dietary_preference in constraints[key]['include']:
-                    sim += sim_weights["dp_match"]
-                    cumulative_norm_score += sim_weights["dp_match"]
-                elif recipe_dietary_preference in constraints[key]['exclude']:
-                    sim -= sim_weights["dp_match"]
-                    cumulative_norm_score += sim_weights["dp_match"]
-                else:
-                    # In case the constraint is not fulfilled we add the weight to the normalization score
-                    cumulative_norm_score += sim_weights["dp_match"]
-            else:
-                sim += sim_weights["dp_match"]
-                cumulative_norm_score += sim_weights["dp_match"]
-              
+            update_sim1(key,constraints,recipe_dietary_preference,'dp_match')      
         if key == "course_type":
-            if constraints[key] is not None:
-                if recipe_course_type in constraints[key]['include']:
-                    sim += sim_weights["ct_match"]
-                    cumulative_norm_score += sim_weights["ct_match"]
-                elif recipe_course_type in constraints[key]['exclude']:
-                    sim -= sim_weights["ct_match"]
-                    cumulative_norm_score += sim_weights["ct_match"]
-                else:
-                    # In case the constraint is not fulfilled we add the weight to the normalization score
-                    cumulative_norm_score += sim_weights["ct_match"]
-            else: 
-                sim += sim_weights["ct_match"]
-                cumulative_norm_score += sim_weights["ct_match"]
+            update_sim1(key,constraints,recipe_course_type,'ct_match')
         if key == "cuisine":
-            if constraints[key] is not None:
-                if recipe_cuisine in constraints[key]['include']:
-                    sim += sim_weights["cuisine_match"]
-                    cumulative_norm_score += sim_weights["cuisine_match"]
-                elif recipe_cuisine in constraints[key]['exclude']:
-                    sim -= sim_weights["cuisine_match"]
-                    cumulative_norm_score += sim_weights["cuisine_match"]
-                else:
-                    # In case the constraint is not fulfilled we add the weight to the normalization score
-                    cumulative_norm_score += sim_weights["cuisine_match"]
-            else:
-                sim += sim_weights["cuisine_match"]
-                cumulative_norm_score += sim_weights["cuisine_match"]
+            update_sim1(key,constraints,recipe_cuisine,'cuisine_match')
         if key == "ingredients":
-            if constraints[key] is not None:
-                for recipe_ingr in recipe_ingredients:
-                    if recipe_ingr['name'] in [ingr['name'] for ingr in constraints[key]['include']]:
-                        sim += sim_weights["ingr_name_match"]
-                        cumulative_norm_score += sim_weights["ingr_name_match"]
-                    elif recipe_ingr['name'] in [ingr['name'] for ingr in constraints[key]['exclude']]:
-                        sim -= sim_weights["ingr_name_match"]
-                        cumulative_norm_score += sim_weights["ingr_name_match"]
-                    else:
-                        # In case the constraint is not fulfilled we add the weight to the normalization score
-                        cumulative_norm_score += sim_weights["ingr_name_match"]
-                    if recipe_ingr['basic_taste'] in [ingr['basic_taste'] for ingr in constraints[key]['include']]:
-                        sim += sim_weights["ingr_basic_taste_match"]
-                        cumulative_norm_score += sim_weights["ingr_basic_taste_match"]
-                    elif recipe_ingr['basic_taste'] in [ingr['basic_taste'] for ingr in constraints[key]['exclude']]:
-                        sim -= sim_weights["ingr_basic_taste_match"]
-                        cumulative_norm_score += sim_weights["ingr_basic_taste_match"]
-                    else:                 
-                        cumulative_norm_score += sim_weights["ingr_basic_taste_match"]
-                    if recipe_ingr['food_category'] in [ingr['food_category'] for ingr in constraints[key]['include']]:
-                        sim += sim_weights["ingr_food_cat_match"]
-                        cumulative_norm_score += sim_weights["ingr_food_cat_match"]
-                    elif recipe_ingr['food_category'] in [ingr['food_category'] for ingr in constraints[key]['exclude']]:
-                        sim -= sim_weights["ingr_food_cat_match"]
-                        cumulative_norm_score += sim_weights["ingr_food_cat_match"]
-                    else:
-                        cumulative_norm_score += sim_weights["ingr_food_cat_match"]
+            if constraints[key]['include']['name'] or constraints[key]['exclude']['name']:
+                update_sim2(constraints,'name','ingr_name_match',recipe_ingredients)
+            if constraints[key]['include']['basic_taste'] or constraints[key]['exclude']['basic_taste']:
+                update_sim2(constraints,'basic_taste','ingr_basic_taste_match',recipe_ingredients)
+            if constraints[key]['include']['food_category'] or constraints[key]['exclude']['food_category']:
+                update_sim2(constraints,'food_category','ingr_food_cat_match',recipe_ingredients)
             else:  
                 sim += sim_weights["ingr_match"]
                 cumulative_norm_score += sim_weights["ingr_match"]     

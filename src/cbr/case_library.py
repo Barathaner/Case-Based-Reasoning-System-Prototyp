@@ -203,8 +203,7 @@ class ConstraintQueryBuilder:
     def _add_constraint(self, category, include=None, exclude=None):
         """General method to add constraints based on inclusion or exclusion lists."""
         if include:
-            self.constraints[category]['include'] += [f"@type='{item.lower()}'" for item in
-                                           include] 
+            self.constraints[category]['include'] += [f"@type='{item.lower()}'" for item in include] 
         if exclude:
             self.constraints[category]['exclude'] += [f"@type!='{item.lower()}'" for item in exclude]
 
