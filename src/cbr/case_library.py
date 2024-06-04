@@ -282,4 +282,7 @@ class ConstraintQueryBuilder:
 
     def reset(self):
         """Reset the accumulated constraints."""
-        self.constraints = {"dietary_preference": [], "course_type": [], "cuisine": [], "ingredients": []}
+        self.constraints = {"dietary_preference": {'include':[],'exclude':[]}, 
+                            "course_type": {'include':[],'exclude':[]}, 
+                            "cuisine": {'include':[],'exclude':[]}, 
+                            "ingredients": {'include':{"name":[],"food_category":[],"basic_taste":[]},'exclude':{"name":[],"food_category":[],"basic_taste":[]}}}

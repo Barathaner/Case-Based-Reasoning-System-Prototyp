@@ -9,7 +9,7 @@ CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.
 cl=CaseLibrary(CASELIBRARYPATH)
 constraints= {"dietary_preference": {'include':[],'exclude':[]},
 "course_type": {'include':['dessert'],'exclude':['side']},
-"ingredients": None,
+"ingredients": {'exclude':{'name':[],'food_category':[],'basic_taste':[]},'include':{'name':[],'food_category':[],'basic_taste':[]}},
 "cuisine":{'exclude':['french'],'include':['italian','thai']}
 }
 ingredients = [
@@ -22,7 +22,6 @@ instructions = [
 "Bake at 180 degrees Celsius for 20 minutes."
 ]
 
-CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.xml')
 
 
 if __name__ == "__main__":
