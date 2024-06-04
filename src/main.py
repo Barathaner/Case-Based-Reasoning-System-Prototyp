@@ -114,6 +114,23 @@ if __name__ == "__main__":
         print("Steps after:")
         print(adapted_recipe.instructions)
 
+        adapted_recipe = CookingRecipe(
+                name="New recipe",
+                course_type=recipes[0].course_type,
+                dietary_preference=recipes[0].dietary_preference,
+                cuisine=recipes[0].cuisine,
+                ingredients=adapted_recipe.ingredients,
+                instructions=adapted_recipe.instructions,
+                utility=1.0,
+                derivation="Adapted",
+                evaluation=None,
+                UaS=0,
+                UaF=0,
+                failure_count=0,
+                success_count=0
+        )
+        print(adapted_recipe)
+
         """
         for step in output.instructions:
                 step_text = step
