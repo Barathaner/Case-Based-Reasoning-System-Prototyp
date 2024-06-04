@@ -7,26 +7,17 @@ import numpy as np
 random.seed(10)
 sim_weights={"dp_match":1,"ct_match":0.85,"cuisine_match":0.65,"ingr_match":0.5,"ingr_name_match":0.5,"ingr_basic_taste_match":0.5,"ingr_food_cat_match":0.5}
 
-def search_ingredient(cl, name=None, basic_taste=None, food_category=None):
-    """Search for an ingredient based on its name, basic taste, or food category."""
-    if name:
-        return random.choice(cl.root.xpath(f".//ingredient[name='{name}']"))
-    if basic_taste:
-        return random.choice(cl.root.xpath(f".//ingredient[@basic_taste='{basic_taste}']"))
-    if food_category:
-        return random.choice(cl.root.xpath(f".//ingredient[@food_category='{food_category}']"))
-    return None
-
 def similarity_recipe(constraints, recipe):
     """
     Calculate similarity between a set of constraints and a particular recipe.
-    Start with similarity 0, then each constraint is evaluated one by one and increase.
-    The similarity is according to the feature weight.
+    Start with similarity 0, then each constraint is evaluated one by one 
+    and increase or decrease the similarity score according to the feature weight.
 
     Parameters
     ----------
     constraints : dict of dictionaries
-        Dictionary containing a set of constraints. Each constraint is a dictionary with keys 'include' and 'exclude' and values passed as lists.
+        Dictionary containing a set of constraints. 
+        Each constraint is a dictionary with keys 'include' and 'exclude' and values passed as lists.
     recipe : CookingRecipe object
 
     Returns
