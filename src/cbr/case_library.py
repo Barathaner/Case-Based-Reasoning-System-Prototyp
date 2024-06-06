@@ -175,9 +175,9 @@ class ConstraintQueryBuilder:
 
     def __init__(self):
         self.constraints = {
-            "dietary_preference": [],
-            "course_type": [],
-            "cuisine": [],
+            "dietary_preference": {'include': [], 'exclude': []},
+            "course_type": {'include': [], 'exclude': []},
+            "cuisine": {'include': [], 'exclude': []},
             "ingredients": {
                 'include': {"name": [],
                             "food_category": [],
@@ -203,47 +203,53 @@ class ConstraintQueryBuilder:
     def _add_constraint(self, category, include=None, exclude=None):
         """General method to add constraints based on inclusion or exclusion lists."""
         if include:
-            self.constraints[category] += [f"@type='{item.lower()}'" for item in
-                                           include]  # we will have to reconstruct again the include and exclude lists
+            self.constraints[category]['include'] += [f"@type='{item.lower()}'" for item in include] 
         if exclude:
-            self.constraints[category] += [f"@type!='{item.lower()}'" for item in exclude]
+            self.constraints[category]['exclude'] += [f"@type!='{item.lower()}'" for item in exclude]
 
     def _add_complex_ingredient_constraint(self, include=None, exclude=None):
         """Method to add complex ingredient constraints based on name, basic taste, and food category."""
         if include:
-            for ing in include:
-                if ing['name']:
-                    self.constraints["ingredients"]['include']['name'].append(f"'{ing['name']}'")
-                if ing['basic_taste']:
-                    self.constraints["ingredients"]['include']['basic_taste'].append(f"'{ing['basic_taste']}'")
-                if ing['food_category']:
-                    self.constraints["ingredients"]['include']['food_category'].append(f"'{ing['food_category']}'")
+            if include['name']:
+                self.constraints["ingredients"]['include']['name']+=[f"@type='{item.lower()}'" for item in include['name']]
+            if include['basic_taste']:
+                self.constraints["ingredients"]['include']['basic_taste']+=[f"@type='{item.lower()}'" for item in include['basic_taste']]
+            if include['food_category']:
+                self.constraints["ingredients"]['include']['food_category']+=[f"@type='{item.lower()}'" for item in include['food_category']]
 
         if exclude:
-            for ing in exclude:
-                if ing['name']:
-                    self.constraints["ingredients"]['exclude']['name'].append(f"'{ing['name']}'")
-                if ing['basic_taste']:
-                    self.constraints["ingredients"]['exclude']['basic_taste'].append(f"'{ing['basic_taste']}'")
-                if ing['food_category']:
-                    self.constraints["ingredients"]['exclude']['food_category'].append(f"'{ing['food_category']}'")
+            if exclude['name']:
+                self.constraints["ingredients"]['exclude']['name']+=[f"@type!='{item.lower()}'" for item in exclude['name']]
+            if exclude['basic_taste']: 
+                self.constraints["ingredients"]['exclude']['basic_taste']+=[f"@type!='{item.lower()}'" for item in exclude['basic_taste']]
+            if exclude['food_category']:
+                self.constraints["ingredients"]['exclude']['food_category']+=[f"@type!='{item.lower()}'" for item in exclude['food_category']]
 
     def build(self):
         """Build the XPath query from the accumulated constraints."""
         parts = []
-        if self.constraints['dietary_preference']:
-            dp_query = " or ".join(self.constraints['dietary_preference'])
+        if self.constraints['dietary_preference']['include']:
+            dp_query = " or ".join(self.constraints['dietary_preference']['include'])
+            parts.append(f"dietary_preference[{dp_query}]")
+        if self.constraints['dietary_preference']['exclude']:
+            dp_query = " and ".join(self.constraints['dietary_preference']['exclude'])
             parts.append(f"dietary_preference[{dp_query}]")
 
-        if self.constraints['course_type']:
-            ct_query = " or ".join(self.constraints['course_type'])
+        if self.constraints['course_type']['include']:
+            ct_query = " or ".join(self.constraints['course_type']['include'])
+            parts.append(f"course_type[{ct_query}]")
+        if self.constraints['course_type']['exclude']:
+            ct_query = " and ".join(self.constraints['course_type']['exclude'])
             parts.append(f"course_type[{ct_query}]")
 
-        if self.constraints['cuisine']:
-            cuisine_query = " or ".join(self.constraints['cuisine'])
+        if self.constraints['cuisine']['include']:
+            cuisine_query = " or ".join(self.constraints['cuisine']['include'])
+            parts.append(f"cuisine[{cuisine_query}]/cookingrecipes//cookingrecipe")
+        if self.constraints['cuisine']['exclude']:
+            cuisine_query = " and ".join(self.constraints['cuisine']['exclude'])
             parts.append(f"cuisine[{cuisine_query}]/cookingrecipes//cookingrecipe")
 
-        if self.constraints['ingredients']['include']:
+        if any(lst for lst in self.constraints['ingredients']['include'].values()):
             if self.constraints['ingredients']['include']['name']:
                 for ing_name in self.constraints['ingredients']['include']['name']:
                     parts[-1] += f"[descendant::ingredient[text()={ing_name}]]"
@@ -254,7 +260,7 @@ class ConstraintQueryBuilder:
                 for food_category in self.constraints['ingredients']['include']['food_category']:
                     parts[-1] += f"[descendant::ingredient[@food_category={food_category}]]"
 
-        if self.constraints['ingredients']['exclude']:
+        if any(lst for lst in self.constraints['ingredients']['exclude'].values()):
             if self.constraints['ingredients']['exclude']['name']:
                 for ing_name in self.constraints['ingredients']['exclude']['name']:
                     parts[-1] += f"[descendant::ingredient[text()!={ing_name}]]"
@@ -276,4 +282,7 @@ class ConstraintQueryBuilder:
 
     def reset(self):
         """Reset the accumulated constraints."""
-        self.constraints = {"dietary_preference": [], "course_type": [], "cuisine": [], "ingredients": []}
+        self.constraints = {"dietary_preference": {'include':[],'exclude':[]}, 
+                            "course_type": {'include':[],'exclude':[]}, 
+                            "cuisine": {'include':[],'exclude':[]}, 
+                            "ingredients": {'include':{"name":[],"food_category":[],"basic_taste":[]},'exclude':{"name":[],"food_category":[],"basic_taste":[]}}}

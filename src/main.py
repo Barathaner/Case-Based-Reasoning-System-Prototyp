@@ -7,9 +7,9 @@ import os
 CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.xml')
 
 cl=CaseLibrary(CASELIBRARYPATH)
-constraints= {"dietary_preference": None,
+constraints= {"dietary_preference": {'include':[],'exclude':[]},
 "course_type": {'include':['dessert'],'exclude':['side']},
-"ingredients": None,
+"ingredients": {'exclude':{'name':[],'food_category':[],'basic_taste':[]},'include':{'name':[],'food_category':[],'basic_taste':[]}},
 "cuisine":{'exclude':['french'],'include':['italian','thai']}
 }
 ingredients = [
@@ -22,7 +22,6 @@ instructions = [
 "Bake at 180 degrees Celsius for 20 minutes."
 ]
 
-CASELIBRARYPATH = os.path.join(os.path.dirname(__file__), '../data/case_library.xml')
 
 
 if __name__ == "__main__":
@@ -39,9 +38,9 @@ if __name__ == "__main__":
         query_builder = ConstraintQueryBuilder()
 
         # Add constraints for various attributes
-        query_builder.add_dietary_preference_constraint(include=['vegetarian'], exclude=[])
+        query_builder.add_dietary_preference_constraint(include=['vegetarian'])
         query_builder.add_course_type_constraint(include=['main'])
-        query_builder.add_cuisine_constraint(include=['thai'], exclude=[])
+        query_builder.add_cuisine_constraint(include=['thai'])
 
         # Build the query
         query = query_builder.build()
