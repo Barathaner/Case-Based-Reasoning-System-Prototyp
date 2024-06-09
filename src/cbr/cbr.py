@@ -43,7 +43,8 @@ class CBR:
         self.query = copy.deepcopy(query)
         self.retrieve(query)
         self.adapt(new_name)
-        print(f"Similarity of the adapted case: {self._similarity_cocktail(self.adapted_recipe)}")
+        print(f"Similarity of the adapted case: {self.similarity_recipe(self.adapted_recipe)}")
+        return self.retrieved_recipe, self.adapted_recipe
         retrieved_case = CookingRecipe().from_element(self.retrieved_recipe)
         adapted_case = CookingRecipe().from_element(self.adapted_recipe)
         return retrieved_case, adapted_case
@@ -71,24 +72,14 @@ class CBR:
         # In case the constraint is not fulfilled we add the weight to the normalization score
         cumulative_norm_score += self.sim_weights[w]
 
-    def similarity_recipe(self, constraints, recipe):
+    def similarity_recipe(self, recipe):
         """
         Calculate similarity between a set of constraints and a particular recipe.
         Start with similarity 0, then each constraint is evaluated one by one 
         and increase or decrease the similarity score according to the feature weight.
 
-        Parameters
-        ----------
-        constraints : dict of dictionaries
-            Dictionary containing a set of constraints. 
-            Each constraint is a dictionary with keys 'include' and 'exclude' and values passed as lists.
-        recipe : CookingRecipe object
-
-        Returns
-        -------
-        float:
-            normalized similarity
         """
+        constraints = self.query.get_data()
         sim = 0
         cumulative_norm_score = 0
         recipe_ingredients = recipe.ingredients
@@ -182,7 +173,8 @@ class CBR:
         
         if list_recipes:
             print(f"Found {len(list_recipes)} recipes")
-            sim_list = [self.similarity_recipe(constraints, rec) for rec in list_recipes] #TODO: if the constraints are too restricted, error un similarity_recipe()
+            #TODO: Before: sim_list = [self.similarity_recipe(constraints, rec) for rec in list_recipes], but constraints are empty. Do not understand.
+            sim_list = [self.similarity_recipe(rec) for rec in list_recipes] #TODO: if the constraints are too restricted, error un similarity_recipe()
             max_indices = np.argwhere(np.array(sim_list) == np.amax(np.array(sim_list))).flatten().tolist()
             index_retrieved = random.choice(max_indices) if len(max_indices) > 1 else max_indices[0]
 

@@ -100,19 +100,10 @@ for message, action, suggestion_pool in zip(messages, actions, suggestion_pools)
 
 query_format = query.build_query()
 """
-recipe_name = "New"
 
-"""
-data = {
-    "ingredients": {
-        "include": {"name": ["egg", "flour"], "food_category": ["spice"], "basic_taste": ["neutral"]},
-        "exclude": {"name": ["tomato"], "food_category": ["oil"], "basic_taste": []}
-    },
-    "course_type": {"include": [], "exclude": []},
-    "cuisine": {"include": ["thai"], "exclude": ["italian"]},
-    "dietary_preference": {"include": ["vegan"], "exclude": []}
-}
-"""
+
+# TODO: After debug -> Eliminate the following lines and uncomment the previous ones
+recipe_name = "New"
 data = {
     "dietary_preference": {'include':[],'exclude':[]},
     "course_type": {'include':['dessert'],'exclude':['side']},
@@ -123,7 +114,7 @@ data = {
     "cuisine":{'exclude':['french'],'include':['italian','thai']}
 }
 query_format = Query(data)
-
+##############
 
 retrieved_case, adapted_case = cbr.run_query(query_format, recipe_name)
 
