@@ -64,6 +64,7 @@ if __name__ == "__main__":
         #for recipe in recipes:
                 #print(recipe)
         print("---------------retrieve case---------------")
+        print(recipes[0])
         print(retrieved_case)
         print("Done") 
         #{'include': [{'name':'butter or margarine ','food_category':None,'basic_taste':None}], 'exclude':[]}
@@ -100,7 +101,7 @@ if __name__ == "__main__":
         """
 
         # Adapt the recipe based on the query
-        adapted_recipe = adapt(cl, query, recipes)
+        adapted_recipe = adapt(cl, query, retrieved_case, recipes)
         print("--------------------")
 
         # Displaying the adapted ingredients and steps

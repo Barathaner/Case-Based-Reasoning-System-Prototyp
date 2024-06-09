@@ -1,4 +1,5 @@
 from lxml import etree, objectify
+import xml.etree.ElementTree as ET
 
 
 class CookingRecipe:
@@ -109,6 +110,15 @@ class CaseLibrary:
         self.tree = objectify.parse(xml_path)
         self.root = self.tree.getroot()
 
+        self.course_types = []
+        self.dietary_preferences_types = []
+        self.cuisines_types = []
+        self.ingredients = []
+        self.basic_tastes_types = []
+        self.food_categories_types = []
+        
+        self.initialize_type_sets()
+
     def add_recipe(self, recipe):
         """Add a recipe to the XML structure at the correct hierarchy based on its attributes."""
         # Erstelle den Pfad, um den richtigen Ort für das Rezept zu finden
@@ -168,6 +178,70 @@ class CaseLibrary:
             print(etree.tostring(recipe, pretty_print=True, encoding='unicode'))
 
         print(f"Show {display_count} of {count} recipes.")
+    
+    def findall(self, constraints):
+        if isinstance(constraints, str):
+            return self.root.xpath(constraints)
+        elif isinstance(constraints, ConstraintQueryBuilder):
+            return self.root.xpath(constraints.build())
+        else:
+            raise TypeError("constraints must be string or ConstraintsQueryBuilder.")
+        
+    def get_ingredient_properties(self, ingredient_name):
+        tree = ET.parse(self.xml_path)
+        root = tree.getroot()
+
+        for ingredient in root.iter("ingredient"):
+            if ingredient.text == ingredient_name:
+                properties = ingredient.attrib
+                properties['name'] = ingredient.text
+                return properties
+        
+        return None
+    
+    def initialize_type_sets(self):
+        self.course_types = []
+        self.dietary_preferences_types = []
+        self.cuisines_types = []
+        self.ingredients = []
+        self.basic_tastes_types = []
+        self.food_categories_types = []
+        
+
+        for recipe in self.root.xpath(".//cookingrecipe"):
+            course_type = recipe.course_type.text
+            dietary_preference = recipe.dietary_preference.text
+            cuisine = recipe.cuisine.text
+
+            if course_type not in self.course_types:
+                self.course_types.append(course_type)
+            if dietary_preference not in self.dietary_preferences_types:
+                self.dietary_preferences_types.append(dietary_preference)
+            if cuisine not in self.cuisines_types:
+                self.cuisines_types.append(cuisine)
+
+
+            for ingredient in recipe.ingredients.iterchildren():
+                name = ingredient.text
+                food_category = ingredient.attrib["food_category"]
+                basic_taste = ingredient.attrib["basic_taste"]
+
+                if name not in self.ingredients:
+                    self.ingredients.append(name)
+                if food_category not in self.food_categories_types:
+                    self.food_categories_types.append(food_category)
+                if basic_taste not in self.basic_tastes_types:
+                    self.basic_tastes_types.append(basic_taste)
+                
+
+        self.course_types = sorted(self.course_types)
+        self.dietary_preferences_types = sorted(self.dietary_preferences_types)
+        self.cuisines_types = sorted(self.cuisines_types)
+        self.ingredients = sorted(self.ingredients)
+        self.basic_tastes_types = sorted(self.basic_tastes_types)
+        self.food_categories_types = sorted(self.food_categories_types)
+
+
 
 
 class ConstraintQueryBuilder:
@@ -277,7 +351,7 @@ class ConstraintQueryBuilder:
         # Build the full path by chaining the parts
         full_query = "/".join(parts)
         xpath_query = f"./{full_query}"
-        print("Debug XPath Query:", xpath_query)  # Debugging line to see the built query
+        #print("Debug XPath Query:", xpath_query)  # Debugging line to see the built query
         return xpath_query
 
     def reset(self):

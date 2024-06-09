@@ -68,25 +68,25 @@ def delete_ingredient(ingr_text, recipe):
         return
 
 
-def exclude_ingredient(exc_ingr_text, recipe, inc_ingrs, recipes):
+def exclude_ingredient(exc_ingr, recipe, inc_ingrs, recipes):
     for inc_ingr in inc_ingrs:
-        if replace_ingredient(exc_ingr_text, inc_ingr):
+        if replace_ingredient(exc_ingr, inc_ingr):
             return
-    for rec in recipes[1:]:
+    for rec in recipes:
         for ingr in rec.ingredients:
-            if replace_ingredient(exc_ingr_text, ingr):
+            if replace_ingredient(exc_ingr, ingr):
                 return
     for _ in range(20):
         similar_ingr = search_ingredient(
-            basic_taste=exc_ingr_text["basic_taste"], food_category=exc_ingr_text["food_category"]
+            basic_taste=exc_ingr["basic_taste"], food_category=exc_ingr["food_category"]
         )
         if similar_ingr is None:
-            delete_ingredient(exc_ingr_text, recipe)
+            delete_ingredient(exc_ingr, recipe)
             return
-        if exc_ingr_text != similar_ingr:
-            exc_ingr_text = similar_ingr
+        if exc_ingr != similar_ingr:
+            exc_ingr = similar_ingr
             return
-    delete_ingredient(exc_ingr_text, recipe)
+    delete_ingredient(exc_ingr, recipe)
 
 
 def update_ingr_list(recipe):
@@ -105,13 +105,16 @@ def update_ingr_list(recipe):
 
 
 
-def adapt(cl, query, recipes):
-    recipe = copy.deepcopy(recipes[0])
-    food_categories, basic_tastes, ingredients = update_ingr_list(recipe)
+def adapt(cl, query, retrived_case, recipes):
 
-    for exc_ingr_text in query["ingredients"]["exclude"]:
-        if exc_ingr_text is not None:
-            delete_ingredient(exc_ingr_text, recipe)
+    adapted_recipe = copy.deepcopy(retrived_case)
+    food_categories, basic_tastes, ingredients = update_ingr_list(adapted_recipe)
+    ingredients = [search_ingredient(ingr) for ingr in query["ingredients"]["include"]]
+
+    for exc_ingr in query["ingredients"]["exclude"]:
+        if exc_ingr in ingredients:
+            exc_ingr = adapted_recipe.find(f"ingredients/ingredient[.='{exc_ingr}']")
+            exclude_ingredient(exc_ingr)
 
     food_categories, basic_tastes, ingredients = update_ingr_list(recipe)
 
