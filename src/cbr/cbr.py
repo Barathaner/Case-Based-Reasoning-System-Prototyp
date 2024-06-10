@@ -166,7 +166,7 @@ class CBR:
             CQB.add_ingredients_constraint(include=relaxed_constraints['ingredients']['include'], exclude=relaxed_constraints['ingredients']['exclude'])
 
             xpath_query = CQB.build()
-            list_recipes = self.case_library.find_recipes_by_constraint_query(xpath_query) #TODO: check that instead of "=" i should be "append"
+            list_recipes = self.case_library.find_recipes_by_constraint_query(xpath_query) 
 
 
         
