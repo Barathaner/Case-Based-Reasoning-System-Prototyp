@@ -2,7 +2,7 @@ import os
 import random
 import numpy as np
 import copy
-from cbr.case_library import *
+from src.cbr.case_library import *
 
 
 def subsumed(a, b):
@@ -13,7 +13,7 @@ CASE_LIBRARY_PATH = os.path.join(os.path.dirname(__file__), '../../data/case_lib
 class CBR:
     def __init__(self, case_library_file=None, seed=None):
         self.UTILITY_THRESHOLD = 0.8
-        self.EVALUATION_THRESHOLD = 0.6
+        self.EVALUATION_THRESHOLD = 6
         if case_library_file is not None:
             self.case_library = CaseLibrary(case_library_file)
         else:
@@ -319,3 +319,66 @@ class CBR:
                 print(ing_properties)
                 self.include_ingredient(similar_ingr, unit=ing_properties["unit"] ,basic_taste=ing_properties["basic_taste"], food_category=ing_properties["food_category"])
                 return
+
+    @staticmethod
+    def _compute_utility(case):
+        return ((int(case.UaS) / (int(case.success_count) + 1e-5)) - (int(case.UaF) / (int(case.failure_count) + 1e-5)) + 1) / 2
+
+    def forget_cases(self):
+        for recipe in self.case_library.find_recipes_by_constraint_query(f".//cookingrecipe[utility < {self.UTILITY_THRESHOLD}]"):
+
+            ingredient_constraints = []
+            food_categories = [ingredient["food_category"] for ingredient in recipe.ingredients if "'" not in ingredient["food_category"]]
+            basic_tastes = [ingredient["basic_taste"] for ingredient in recipe.ingredients if "'" not in ingredient["basic_taste"]]
+            names = [ingredient["name"] for ingredient in recipe.ingredients if "'" not in ingredient["name"]]
+
+            for food_category, basic_taste, name in zip(food_categories, basic_tastes, names):
+                constraint = {"food_category": food_category, "basic_taste": basic_taste, "name": name}
+                ingredient_constraints.append(constraint)
+
+            query_builder = ConstraintQueryBuilder()
+            query_builder.add_dietary_preference_constraint(include=[recipe.dietary_preference])
+            query_builder.add_course_type_constraint(include=[recipe.course_type])
+            query_builder.add_cuisine_constraint(include=[recipe.cuisine])
+            query_builder.add_whole_ingredients_constraint(include=ingredient_constraints)
+
+            query = query_builder.build()
+
+            found_recipes = self.case_library.find_recipes_by_constraint_query(query)
+
+            if len(found_recipes) > 1:
+                self.case_library.remove_recipe(recipe)
+
+    def learn(self):
+        if self.adapted_recipe.evaluation == "success":
+            self.case_library.add_recipe(self.adapted_recipe)
+            self.forget_cases()
+            self.case_library.save()
+
+    def evaluate(self, user_score):
+        if user_score > self.EVALUATION_THRESHOLD:
+            self.adapted_recipe.evaluation = "success"
+            self.retrieved_recipe.UaS = str(int(self.retrieved_recipe.UaS) + 1)
+            self.retrieved_recipe.success_count = str(int(self.retrieved_recipe.success_count) + 1)
+            self.retrieved_recipe.utility = str(self._compute_utility(self.retrieved_recipe))
+            for recipe in self.sim_recipes:
+                recipe.success_count = str(int(recipe.success_count) + 1)
+                recipe.utility = str(self._compute_utility(recipe))
+                self.case_library.remove_recipe(recipe)
+                self.case_library.add_recipe(recipe)
+        else:
+            self.adapted_recipe.evaluation = "failure"
+            self.retrieved_recipe.UaF = str(int(self.retrieved_recipe.UaF) + 1)
+            self.retrieved_recipe.failure_count = str(int(self.retrieved_recipe.failure_count) + 1)
+            self.retrieved_recipe.utility = str(self._compute_utility(self.retrieved_recipe))
+            for recipe in self.sim_recipes:
+                recipe.failure_count = str(int(recipe.failure_count) + 1)
+                recipe.utility = str(self._compute_utility(recipe))
+                self.case_library.remove_recipe(recipe)
+                self.case_library.add_recipe(recipe)
+
+        self.case_library.remove_recipe(self.adapted_recipe)
+        self.case_library.add_recipe(self.adapted_recipe)
+        self.case_library.remove_recipe(self.retrieved_recipe)
+        self.case_library.add_recipe(self.retrieved_recipe)
+        self.learn()

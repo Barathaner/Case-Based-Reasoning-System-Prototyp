@@ -1,0 +1,87 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f8ff; /* Light blue background */
+    color: #333;
+}
+
+h1 {
+    color: #1e3d59; /* Dark blue for headings */
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.form-section {
+    flex: 1;
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 700px; /* Reduced max-width */
+    width: 35%; /* Reduced max-width */
+}
+
+.recipe-box {
+    flex: 2; /* Increased flex for recipe box */
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 700px; /* Reduced max-width */
+    width: 35%; /* Reduced max-width */
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    color: #1e3d59; /* Dark blue */
+    font-weight: bold;
+}
+
+input, select, button {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #1e3d59;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+input, select {
+    background-color: #e0f7ff; /* Light blue background for inputs */
+    color: #1e3d59;
+}
+
+button {
+    background-color: #1e3d59;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #145a76; /* Darker blue on hover */
+}
+
+.recipe-box h2 {
+    margin-top: 0;
+    color: #145a76; /* Slightly lighter dark blue */
+}
+
+.recipe-box p {
+    margin: 5px 0;
+}
+
+.recipe-box form {
+    margin-top: 20px;
+}
