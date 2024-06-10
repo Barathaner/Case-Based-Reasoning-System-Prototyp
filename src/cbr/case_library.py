@@ -144,7 +144,7 @@ class CaseLibrary:
 
         # Füge das Rezept hinzu, wenn kein Duplikat gefunden wurde
         recipes_node.append(recipe.to_xml())
-        self.save()
+
         return True  # Erfolgreich hinzugefügt
 
     def remove_recipe(self, recipe):
@@ -154,7 +154,6 @@ class CaseLibrary:
         if recipe:
             parent = recipe[0].getparent()
             parent.remove(recipe[0])
-            self.save()
 
     def save(self):
         """Save changes to the XML file."""
@@ -274,6 +273,9 @@ class ConstraintQueryBuilder:
     def add_ingredients_constraint(self, include=None, exclude=None):
         self._add_complex_ingredient_constraint(include, exclude)
 
+    def add_whole_ingredients_constraint(self, include=None, exclude=None):
+        self._add_whole_complex_ingredient_constraint(include, exclude)
+
     def _add_constraint(self, category, include=None, exclude=None):
         """General method to add constraints based on inclusion or exclusion lists."""
         if include:
@@ -299,6 +301,26 @@ class ConstraintQueryBuilder:
             if exclude['food_category']:
                 self.constraints["ingredients"]['exclude']['food_category']+=[f"@type!='{item.lower()}'" for item in exclude['food_category']]
 
+    def _add_whole_complex_ingredient_constraint(self, include=None, exclude=None):
+        """Method to add complex ingredient constraints based on name, basic taste, and food category."""
+        if include:
+            for ing in include:
+                if ing['name']:
+                    self.constraints["ingredients"]['include']['name'].append(f"'{ing['name']}'")
+                if ing['basic_taste']:
+                    self.constraints["ingredients"]['include']['basic_taste'].append(f"'{ing['basic_taste']}'")
+                if ing['food_category']:
+                    self.constraints["ingredients"]['include']['food_category'].append(f"'{ing['food_category']}'")
+
+        if exclude:
+            for ing in exclude:
+                if ing['name']:
+                    self.constraints["ingredients"]['exclude']['name'].append(f"'{ing['name']}'")
+                if ing['basic_taste']:
+                    self.constraints["ingredients"]['exclude']['basic_taste'].append(f"'{ing['basic_taste']}'")
+                if ing['food_category']:
+                    self.constraints["ingredients"]['exclude']['food_category'].append(f"'{ing['food_category']}'")
+
     def build(self):
         """Build the XPath query from the accumulated constraints."""
         parts = []
@@ -309,6 +331,11 @@ class ConstraintQueryBuilder:
             dp_query = " and ".join(self.constraints['dietary_preference']['exclude'])
             parts.append(f"dietary_preference[{dp_query}]")
 
+        if len(parts) == 0:
+            parts.append('dietary_preference')
+        elif 'dietary_preference' not in parts[-1]:
+            parts.append('dietary_preference')
+
         if self.constraints['course_type']['include']:
             ct_query = " or ".join(self.constraints['course_type']['include'])
             parts.append(f"course_type[{ct_query}]")
@@ -316,12 +343,23 @@ class ConstraintQueryBuilder:
             ct_query = " and ".join(self.constraints['course_type']['exclude'])
             parts.append(f"course_type[{ct_query}]")
 
+        if len(parts) == 0:
+            parts.append('course_type')
+        elif 'course_type' not in parts[-1]:
+            parts.append('course_type')
+
         if self.constraints['cuisine']['include']:
             cuisine_query = " or ".join(self.constraints['cuisine']['include'])
             parts.append(f"cuisine[{cuisine_query}]/cookingrecipes//cookingrecipe")
         if self.constraints['cuisine']['exclude']:
             cuisine_query = " and ".join(self.constraints['cuisine']['exclude'])
             parts.append(f"cuisine[{cuisine_query}]/cookingrecipes//cookingrecipe")
+
+        if len(parts) == 0:
+            parts.append('cuisine/cookingrecipes//cookingrecipe')
+        elif 'cookingrecipes//cookingrecipe' not in parts[-1]:
+            parts.append('cuisine/cookingrecipes//cookingrecipe')
+
 
         if any(lst for lst in self.constraints['ingredients']['include'].values()):
             if self.constraints['ingredients']['include']['name']:

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CBR Recipe Generator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Generate a New Recipe</h1>
+    <div class="container">
+        <form class="form-section" method="post">
+            <label for="recipe_name">Recipe Name:</label>
+            <input type="text" id="recipe_name" name="recipe_name" required>
+
+            <label for="course_type">Course Type:</label>
+            <select id="course_type" name="course_type" required>
+                {% for course in options.course_types %}
+                <option value="{{ course }}">{{ course }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="dietary_preference">Dietary Preference:</label>
+            <select id="dietary_preference" name="dietary_preference" required>
+                {% for preference in options.dietary_preferences %}
+                <option value="{{ preference }}">{{ preference }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="cuisine_origin">Cuisine Origin:</label>
+            <select id="cuisine_origin" name="cuisine_origin" required>
+                {% for cuisine in options.cuisine_origins %}
+                <option value="{{ cuisine }}">{{ cuisine }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Basic Taste Includes:</label>
+            <select name="basic_taste_include" multiple>
+                {% for taste in options.basic_tastes %}
+                <option value="{{ taste }}">{{ taste }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Basic Taste Excludes:</label>
+            <select name="basic_taste_exclude" multiple>
+                {% for taste in options.basic_tastes %}
+                <option value="{{ taste }}">{{ taste }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Food Category Includes:</label>
+            <select name="food_category_include" multiple>
+                {% for category in options.food_categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Food Category Excludes:</label>
+            <select name="food_category_exclude" multiple>
+                {% for category in options.food_categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Generate Recipe</button>
+        </form>
+
+        {% if adapted_recipe %}
+        <div class="recipe-box">
+            <h2>Adapted Recipe</h2>
+            <p><strong>Name:</strong> {{ adapted_recipe.name }}</p>
+            <p><strong>Course Type:</strong> {{ adapted_recipe.course_type }}</p>
+            <p><strong>Dietary Preference:</strong> {{ adapted_recipe.dietary_preference }}</p>
+            <p><strong>Cuisine Origin:</strong> {{ adapted_recipe.cuisine }}</p>
+            <p><strong>Ingredients:</strong>
+                {% for ingredient in adapted_recipe.ingredients %}
+                <span>{{ ingredient.food_category }} | {{ ingredient.basic_taste }} | {{ ingredient.amount }}{{ ingredient.unit }} | {{ ingredient.name }}</span><br>
+                {% endfor %}
+            </p>
+            <p><strong>Steps:</strong>
+                {% for instruction in adapted_recipe.instructions %}
+                <span>{{ instruction }}</span><br>
+                {% endfor %}
+            </p>
+
+            <h2>Evaluate this Recipe</h2>
+            <form method="post" action="{{ url_for('evaluate') }}">
+                <input type="hidden" name="recipe_name" value="{{ adapted_recipe.name }}">
+                <label for="score">Score:</label>
+                <input type="number" id="score" name="score" min="1" max="10" required>
+                <button type="submit">Save Evaluation</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
