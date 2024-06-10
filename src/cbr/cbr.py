@@ -67,8 +67,10 @@ class CBR:
     def update_sim2(self, sim, cumulative_norm_score, constraints, attribute, w, ingredient):
         if (len(constraints['ingredients']['include'][attribute]) > 0) and ingredient[attribute] in constraints['ingredients']['include'][attribute]:
             sim += self.sim_weights[w]
+            cumulative_norm_score += self.sim_weights[w]
         elif (len(constraints['ingredients']['exclude'][attribute]) > 0) and ingredient[attribute] in constraints['ingredients']['exclude'][attribute]:
             sim -= self.sim_weights[w]
+            cumulative_norm_score += self.sim_weights[w]
         # In case the constraint is not fulfilled we add the weight to the normalization score
         cumulative_norm_score += self.sim_weights[w]
 
