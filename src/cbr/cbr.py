@@ -74,14 +74,13 @@ class CBR:
         # In case the constraint is not fulfilled we add the weight to the normalization score
         cumulative_norm_score += self.sim_weights[w]
 
-    def similarity_recipe(self, recipe):
+    def similarity_recipe(self, recipe,constraints):
         """
         Calculate similarity between a set of constraints and a particular recipe.
         Start with similarity 0, then each constraint is evaluated one by one 
         and increase or decrease the similarity score according to the feature weight.
 
         """
-        constraints = self.query.get_data()
         sim = 0
         cumulative_norm_score = 0
         recipe_ingredients = recipe.ingredients
@@ -126,7 +125,7 @@ class CBR:
 
         xpath_query = CQB.build()
         list_recipes = self.case_library.find_recipes_by_constraint_query(xpath_query)
-        relaxed_constraints = constraints.copy()
+        relaxed_constraints = copy.deepcopy(constraints)
 
         while len(list_recipes) < 5:
             # We start by removing include ingredients constraints if they are specified
@@ -176,12 +175,12 @@ class CBR:
         if list_recipes:
             print(f"Found {len(list_recipes)} recipes")
             #TODO: Before: sim_list = [self.similarity_recipe(constraints, rec) for rec in list_recipes], but constraints are empty. Do not understand.
-            sim_list = [self.similarity_recipe(rec) for rec in list_recipes] #TODO: if the constraints are too restricted, error un similarity_recipe()
+            sim_list = [self.similarity_recipe(rec,constraints) for rec in list_recipes] #TODO: if the constraints are too restricted, error un similarity_recipe()
             max_indices = np.argwhere(np.array(sim_list) == np.amax(np.array(sim_list))).flatten().tolist()
             index_retrieved = random.choice(max_indices) if len(max_indices) > 1 else max_indices[0]
 
             self.retrieved_recipe = list_recipes[index_retrieved]
-            self.sim_recipes = list_recipes[:4] # Return the top 4 most similar recipes. TODO: I think that the list_recipes should only be 5, according to the while. Check this.
+            self.sim_recipes = list_recipes[:5] # Return the top 5 most similar recipes.
 
 
             self.adapted_recipe = copy.deepcopy(self.retrieved_recipe)
