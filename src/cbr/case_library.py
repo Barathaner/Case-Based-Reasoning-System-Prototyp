@@ -11,7 +11,6 @@ class CookingRecipe:
         self.cuisine = str(cuisine).lower()
         self.ingredients = ingredients
         self.instructions = instructions
-        # add missing attributes
         self.utility = utility
         self.derivation = derivation
         self.evaluation = evaluation
@@ -71,7 +70,7 @@ class CookingRecipe:
                 f"success_count: {self.success_count.title()}\n"
                 f"Ingredients: {ingredients_str}\n"
                 f"Instructions: {instructions_str}\n"
-                f"Utility:{self.utility}")  # add the rest of attributes if needed
+                f"Utility:{self.utility}") 
 
     def compare_with(self, other):
         """Compares the current recipe with another recipe and returns the differences."""
@@ -430,7 +429,6 @@ class ConstraintQueryBuilder:
         # Build the full path by chaining the parts
         full_query = "/".join(parts)
         xpath_query = f"./{full_query}"
-        #print("Debug XPath Query:", xpath_query)  # Debugging line to see the built query
         return xpath_query
 
     def reset(self):
