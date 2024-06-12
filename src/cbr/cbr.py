@@ -2,7 +2,7 @@ import os
 import random
 import numpy as np
 import copy
-from cbr.case_library import *
+from src.cbr.case_library import *
 
 
 def subsumed(a, b):

@@ -1,4 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 
 from src.cbr.cbr import CBR
 from src.cbr.query import Query
