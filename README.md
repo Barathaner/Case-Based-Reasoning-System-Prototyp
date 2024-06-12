@@ -43,3 +43,8 @@ In order to run the tests you can run:
 ```python
 python src/main_test.py
 ```
+
+
+
+Test Example:
+![image](https://github.com/Barathaner/Case-Based-Reasoning-System-Prototyp/assets/40422666/fa99b7fe-51aa-449b-b5d4-d3fae04a0df0)
