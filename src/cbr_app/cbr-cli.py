@@ -29,7 +29,7 @@ def score_is_valid(score):
         return False
 
 print("- Welcome to CBR Cooking Recipe.")
-print('- Please, enter the name of the recipe and your preferences. Write "suggest" to see examples.\n')
+print('- Please, enter the name of the recipe and your preferences.\n')
 
 messages = [
     "- Type of course type (include): ",
@@ -87,6 +87,7 @@ while True:
 for message, action, suggestion_pool in zip(messages, actions, suggestion_pools):
     print("")
     while True:
+        print(suggestion_pool)
         x = list(set(filter(None, re.sub(" +", " ", input(message)).split(", "))))
         if not x:
             break
