@@ -2,7 +2,7 @@ import os
 import random
 import numpy as np
 import copy
-from src.cbr.case_library import *
+from cbr.case_library import *
 
 
 def subsumed(a, b):
@@ -183,8 +183,8 @@ class CBR:
 
             self.adapted_recipe = copy.deepcopy(self.retrieved_recipe)
             self.update_ingr_list()
-            
-            self.query.set_ingredients([self.search_ingredient(ingr) for ingr in self.query.get_ingredients()])
+            ingredients = [self.search_ingredient(ingr) for ingr in self.query.get_ingredients()]
+            self.query.set_ingredients(ingredients,"name")
 
             
             

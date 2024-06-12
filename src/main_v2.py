@@ -73,7 +73,7 @@ suggestion_pools = [
     list(map(str, cbr.case_library.basic_tastes_types))
 ]
 
-"""
+
 while True:
     recipe_name = input("- Name of the recipe: ")
     if recipe_name:
@@ -98,25 +98,9 @@ for message, action, suggestion_pool in zip(messages, actions, suggestion_pools)
                 action(x)
                 break
 
-query_format = query.build_query()
-"""
 
 
-# TODO: After debug -> Eliminate the following lines and uncomment the previous ones
-recipe_name = "New"
-data = {
-    "dietary_preference": {'include':[],'exclude':[]},
-    "course_type": {'include':['dessert'],'exclude':['side']},
-    "ingredients": {
-        "include": {"name": ["egg", "flour", "butter", "sour cream"], "food_category": ["spice"], "basic_taste": ["neutral"]},
-        "exclude": {"name": ["tomato", "panko"], "food_category": ["oil"], "basic_taste": []}
-    },
-    "cuisine":{'exclude':['french'],'include':['italian','thai']}
-}
-query_format = Query(data)
-##############
-
-retrieved_case, adapted_case = cbr.run_query(query_format, recipe_name)
+retrieved_case, adapted_case = cbr.run_query(query, recipe_name)
 
 print("\n- Here is the retrieved recipe:")
 print(retrieved_case)

@@ -25,9 +25,10 @@ class Query:
         key = "exclude" if exclude else "include"
         self.data["cuisine"][key] = values
 
-    def set_ingredients(self, values, exclude=False):
+
+    def set_ingredients(self, values,category, exclude=False):
         key = "exclude" if exclude else "include"
-        self.data["ingredients"][key]["name"] = values
+        self.data["ingredients"][key][category] = values
 
 
     def get_ingredients(self):
