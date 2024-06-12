@@ -41,7 +41,7 @@ class CookingRecipe:
                                                       amount=str(ingredient['amount']), unit=ingredient['unit'],
                                                       basic_taste=str(ingredient['basic_taste']).lower(),
                                                       food_category=str(ingredient['food_category']).lower())
-            ingredient_element._setText(ingredient['name'])
+            ingredient_element._setText(str(ingredient['name']))
 
         instructions_element = objectify.SubElement(recipe_element, "instructions")
         for step in self.instructions:

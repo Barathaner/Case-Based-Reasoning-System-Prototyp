@@ -2,7 +2,7 @@ import os
 import random
 import numpy as np
 import copy
-from src.cbr.case_library import *
+from cbr.case_library import *
 
 
 def subsumed(a, b):
@@ -43,11 +43,9 @@ class CBR:
         self.query = copy.deepcopy(query)
         self.retrieve(query)
         self.adapt(new_name)
-        print(f"Similarity of the adapted case: {self.similarity_recipe(self.adapted_recipe)}")
+        print(f"Similarity of the adapted case: {self.similarity_recipe(self.adapted_recipe, self.query.get_data())}")
         return self.retrieved_recipe, self.adapted_recipe
-        retrieved_case = CookingRecipe().from_element(self.retrieved_recipe)
-        adapted_case = CookingRecipe().from_element(self.adapted_recipe)
-        return retrieved_case, adapted_case
+
     
 
     #########################################
@@ -74,7 +72,7 @@ class CBR:
         # In case the constraint is not fulfilled we add the weight to the normalization score
         cumulative_norm_score += self.sim_weights[w]
 
-    def similarity_recipe(self, recipe,constraints):
+    def similarity_recipe(self, recipe, constraints):
         """
         Calculate similarity between a set of constraints and a particular recipe.
         Start with similarity 0, then each constraint is evaluated one by one 
@@ -217,21 +215,12 @@ class CBR:
             return
 
     def adapt(self, new_name):
-        """
-        Adapts the recipe according the user requirements
-        by excluding ingredients and including other ingredients,
-        alcohol types and basic tastes.
-
-        Parameters
-        ----------
-        new_name : str
-            The name for the adapted recipe.
-        """
         self.adapted_recipe.name = new_name
         for exc_ingr in self.query.get_exc_ingredients():
             if exc_ingr in self.ingredients:
-                exc_ingr = self.adapted_recipe.find(f"ingredients/ingredient[.='{exc_ingr}']")
-                self.exclude_ingredient(exc_ingr)
+                for rec_ingr in self.adapted_recipe.ingredients:
+                    if rec_ingr['name'] == exc_ingr:
+                        self.exclude_ingredient(rec_ingr)
 
         self.update_ingr_list()
 
@@ -252,36 +241,47 @@ class CBR:
                 self.adapt_cat_and_tastes(basic_taste=basic_taste)
 
     def replace_ingredient(self, ingr1, ingr2):
-        if ingr1.text != ingr2.text:
+        
+        ingr2 = self.case_library.get_ingredient_properties(ingr2)
+        if ingr1["name"] != ingr2["name"]:
             if (
-                ingr1.attrib["basic_taste"] == ingr2.attrib["basic_taste"]
-                and ingr1.attrib["food_category"] == ingr2.attrib["food_category"]
+                ingr1["basic_taste"] == ingr2["basic_taste"]
+                and ingr1["food_category"] == ingr2["food_category"]
             ):
-                ingr1._setText(ingr2.text)
+                self.delete_ingredient(ingr1)
+                self.include_ingredient(ingr2["name"], unit=ingr2["unit"], basic_taste=ingr2["basic_taste"], food_category=ingr2["food_category"])
                 return True
         return False
     
     def exclude_ingredient(self, exc_ingr):
-        if not exc_ingr.attrib["alc_type"]:
-            for ingr in self.query.get_ingredients():
-                if self.replace_ingredient(exc_ingr, ingr):
+        for ingr in self.query.get_ingredients():
+            if self.replace_ingredient(exc_ingr, ingr):
+                return
+        for recipe in self.sim_recipes:
+            for ingr in recipe.ingredients:
+                if self.replace_ingredient(exc_ingr, ingr["name"]):
                     return
-            for recipe in self.sim_recipes:
-                for ingr in recipe.ingredients.iterchildren():
-                    if self.replace_ingredient(exc_ingr, ingr):
-                        return
-            for _ in range(20):
-                ingr = self._search_ingredient(
-                    basic_taste=exc_ingr.attrib["basic_taste"], alc_type=exc_ingr.attrib["alc_type"]
-                )
-                if ingr is None:
-                    self.delete_ingredient(exc_ingr)
-                    return
-                if exc_ingr.text != ingr.text:
-                    exc_ingr._setText(ingr.text)
-                    return
+        for _ in range(20):
+            ingr = self.search_ingredient(
+                basic_taste=exc_ingr["basic_taste"], food_category=exc_ingr["food_category"]
+            )
+            ingr = self.case_library.get_ingredient_properties(ingr)
+            if ingr is None:
+                self.delete_ingredient(exc_ingr)
+                return
+            if exc_ingr["name"] != ingr["name"]:
+                self.delete_ingredient(exc_ingr)
+                self.include_ingredient(ingr["name"], unit=ingr["unit"], basic_taste=ingr["basic_taste"], food_category=ingr["food_category"])
+                return
         self.delete_ingredient(exc_ingr)
-        return
+        
+    
+    def delete_ingredient(self, ingr):
+        self.adapted_recipe.ingredients.remove(ingr)
+        for step in self.adapted_recipe.instructions:
+            if ingr["name"] in step:
+                    self.adapted_recipe.instructions.remove(step)
+
     
     
     def include_ingredient(self, ingr, measure="some", unit="g", basic_taste="general", food_category="general"):
@@ -306,7 +306,6 @@ class CBR:
                 if ingr["basic_taste"] == basic_taste and ingr["food_category"] == food_category
             ]
             for si in similar_ingrs:
-                print(si)
                 if not subsumed(si, exc_ingrs):
                     ing_properties = self.case_library.get_ingredient_properties(si)
                     self.include_ingredient(si, measure=si.get("measure", "some"), unit=ing_properties["unit"], basic_taste=ing_properties["basic_taste"], food_category=ing_properties["food_category"])
@@ -317,7 +316,6 @@ class CBR:
                 return
             if not subsumed(similar_ingr, exc_ingrs) :
                 ing_properties = self.case_library.get_ingredient_properties(similar_ingr)
-                print(ing_properties)
                 self.include_ingredient(similar_ingr, unit=ing_properties["unit"] ,basic_taste=ing_properties["basic_taste"], food_category=ing_properties["food_category"])
                 return
 
