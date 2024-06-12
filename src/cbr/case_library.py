@@ -77,38 +77,44 @@ class CookingRecipe:
         """Compares the current recipe with another recipe and returns the differences."""
         differences = []
 
-        if self.name != other.name:
-            differences.append(f"Name: {self.name} != {other.name}")
         if self.course_type != other.course_type:
             differences.append(f"Course Type: {self.course_type} != {other.course_type}")
         if self.dietary_preference != other.dietary_preference:
             differences.append(f"Dietary Preference: {self.dietary_preference} != {other.dietary_preference}")
         if self.cuisine != other.cuisine:
             differences.append(f"Cuisine: {self.cuisine} != {other.cuisine}")
-        if self.utility != other.utility:
-            differences.append(f"Utility: {self.utility} != {other.utility}")
-        if self.derivation != other.derivation:
-            differences.append(f"Derivation: {self.derivation} != {other.derivation}")
-        if self.evaluation != other.evaluation:
-            differences.append(f"Evaluation: {self.evaluation} != {other.evaluation}")
-        if self.UaS != other.UaS:
-            differences.append(f"UaS: {self.UaS} != {other.UaS}")
-        if self.UaF != other.UaF:
-            differences.append(f"UaF: {self.UaF} != {other.UaF}")
-        if self.success_count != other.success_count:
-            differences.append(f"Success Count: {self.success_count} != {other.success_count}")
-        if self.failure_count != other.failure_count:
-            differences.append(f"Failure Count: {self.failure_count} != {other.failure_count}")
 
         ingredients1 = sorted(self.ingredients, key=lambda x: x['name'])
         ingredients2 = sorted(other.ingredients, key=lambda x: x['name'])
-        if ingredients1 != ingredients2:
-            differences.append(f"Ingredients: {ingredients1} != {ingredients2}")
 
-        if self.instructions != other.instructions:
-            differences.append(f"Instructions: {self.instructions} != {other.instructions}")
+        diff_ingredients = []
+        for ing1, ing2 in zip(ingredients1, ingredients2):
+            if ing1['name'] != ing2['name']:
+                diff_ingredients.append(f"{ing1['name']} != {ing2['name']}")
+        if len(ingredients1) > len(ingredients2):
+            diff_ingredients.extend([f"{ing['name']} != None" for ing in ingredients1[len(ingredients2):]])
+        elif len(ingredients2) > len(ingredients1):
+            diff_ingredients.extend([f"None != {ing['name']}" for ing in ingredients2[len(ingredients1):]])
 
-        return differences
+        if diff_ingredients:
+            differences.append(f"Ingredients: {', '.join(diff_ingredients)}")
+
+        instructions1 = self.instructions
+        instructions2 = other.instructions
+
+        diff_instructions = []
+        for step1, step2 in zip(instructions1, instructions2):
+            if step1 != step2:
+                diff_instructions.append(f"{step1} != {step2}")
+        if len(instructions1) > len(instructions2):
+            diff_instructions.extend([f"{step} != None" for step in instructions1[len(instructions2):]])
+        elif len(instructions2) > len(instructions1):
+            diff_instructions.extend([f"None != {step}" for step in instructions2[len(instructions1):]])
+
+        if diff_instructions:
+            differences.append(f"Instructions: {', '.join(diff_instructions)}")
+
+        return '\n'.join(differences)
 
 
 def parse_recipe_from_xml(xml_element):

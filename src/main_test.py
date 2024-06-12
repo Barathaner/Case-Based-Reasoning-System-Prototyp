@@ -1,5 +1,10 @@
-from src.cbr.cbr import CBR
-from src.cbr.query import Query
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.', '..')))
+
+from cbr.cbr import CBR
+from cbr.query import Query
 import random
 import string
 import time

@@ -3,7 +3,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.', '..')))
-from src.cbr.cbr import CBR
+from cbr.cbr import CBR
 from cbr.query import Query
 
 query = Query()
