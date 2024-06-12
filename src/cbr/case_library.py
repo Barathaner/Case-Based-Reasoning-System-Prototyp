@@ -155,6 +155,11 @@ class CaseLibrary:
             parent = recipe[0].getparent()
             parent.remove(recipe[0])
 
+    def get_length(self):
+        recipes = self.root.xpath(".//cookingrecipe")
+        count = len(recipes)
+        return count
+
     def save(self):
         """Save changes to the XML file."""
         objectify.deannotate(self.root, cleanup_namespaces=True)

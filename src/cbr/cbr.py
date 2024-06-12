@@ -2,7 +2,7 @@ import os
 import random
 import numpy as np
 import copy
-from cbr.case_library import *
+from src.cbr.case_library import *
 
 
 def subsumed(a, b):
@@ -352,7 +352,7 @@ class CBR:
         if self.adapted_recipe.evaluation == "success":
             self.case_library.add_recipe(self.adapted_recipe)
             self.forget_cases()
-            self.case_library.save()
+        self.case_library.save()
 
     def evaluate(self, user_score):
         if user_score > self.EVALUATION_THRESHOLD:
@@ -376,8 +376,6 @@ class CBR:
                 self.case_library.remove_recipe(recipe)
                 self.case_library.add_recipe(recipe)
 
-        self.case_library.remove_recipe(self.adapted_recipe)
-        self.case_library.add_recipe(self.adapted_recipe)
         self.case_library.remove_recipe(self.retrieved_recipe)
         self.case_library.add_recipe(self.retrieved_recipe)
         self.learn()
