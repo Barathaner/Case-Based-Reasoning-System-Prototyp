@@ -177,9 +177,7 @@ class CBR:
         
         
         if list_recipes:
-            # print(f"Found {len(list_recipes)} recipes")
-            #TODO: Before: sim_list = [self.similarity_recipe(constraints, rec) for rec in list_recipes], but constraints are empty. Do not understand.
-            sim_list = [self.similarity_recipe(rec,constraints) for rec in list_recipes] #TODO: if the constraints are too restricted, error un similarity_recipe()
+            sim_list = [self.similarity_recipe(rec,constraints) for rec in list_recipes]
             max_indices = np.argwhere(np.array(sim_list) == np.amax(np.array(sim_list))).flatten().tolist()
             index_retrieved = random.choice(max_indices) if len(max_indices) > 1 else max_indices[0]
 
