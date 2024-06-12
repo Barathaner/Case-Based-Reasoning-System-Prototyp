@@ -73,6 +73,7 @@ suggestion_pools = [
     list(map(str, cbr.case_library.basic_tastes_types))
 ]
 
+
 while True:
     recipe_name = input("- Name of the recipe: ")
     if recipe_name:
@@ -83,7 +84,6 @@ while True:
 for message, action, suggestion_pool in zip(messages, actions, suggestion_pools):
     print("")
     while True:
-        print(f"Suggested values: {suggestion_pool}")
         x = list(set(filter(None, re.sub(" +", " ", input(message)).split(", "))))
         if not x:
             break
@@ -98,7 +98,7 @@ for message, action, suggestion_pool in zip(messages, actions, suggestion_pools)
                 action(x)
                 break
 
-##############
+
 
 retrieved_case, adapted_case = cbr.run_query(query, recipe_name)
 
