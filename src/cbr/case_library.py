@@ -164,32 +164,25 @@ class CaseLibrary:
 
     def add_recipe(self, recipe):
         """Add a recipe to the XML structure at the correct hierarchy based on its attributes."""
-        # Erstelle den Pfad, um den richtigen Ort für das Rezept zu finden
         path = f"./dietary_preference[@type='{recipe.dietary_preference}']/course_type[@type='{recipe.course_type}']/cuisine[@type='{recipe.cuisine}']"
         parent = self.root.xpath(path)
 
         if not parent:
-            # Wenn der Pfad nicht existiert, erstelle die notwendigen Knoten
             dp_node = objectify.SubElement(self.root, "dietary_preference", type=recipe.dietary_preference)
             ct_node = objectify.SubElement(dp_node, "course_type", type=recipe.course_type)
             cuisine_node = objectify.SubElement(ct_node, "cuisine", type=recipe.cuisine)
             recipes_node = objectify.SubElement(cuisine_node, "cookingrecipes")
-            # We should add the rest of attributes as default parameters ?
-
         else:
             recipes_node = parent[0].xpath("./cookingrecipes")[0]
 
-        # Prüfe, ob ein Rezept mit demselben Namen bereits existiert
         existing_recipe = recipes_node.xpath(f"./cookingrecipe[name='{recipe.name}']")
         if existing_recipe:
             print("This name is already taken, create a new one.")
-            return False  # Rückgabe von False, um anzuzeigen, dass das Hinzufügen fehlgeschlagen ist
+            return False  
 
-        # Füge das Rezept hinzu, wenn kein Duplikat gefunden wurde
         recipes_node.append(recipe.to_xml())
 
-        return True  # Erfolgreich hinzugefügt
-
+        return True  
     def remove_recipe(self, recipe):
         """Remove a recipe from the XML based on its name and location."""
         query = f"./dietary_preference[@type='{recipe.dietary_preference}']/course_type[@type='{recipe.course_type}']/cuisine[@type='{recipe.cuisine}']/cookingrecipes/cookingrecipe[name='{recipe.name}']"
