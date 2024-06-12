@@ -73,6 +73,43 @@ class CookingRecipe:
                 f"Instructions: {instructions_str}\n"
                 f"Utility:{self.utility}")  # add the rest of attributes if needed
 
+    def compare_with(self, other):
+        """Compares the current recipe with another recipe and returns the differences."""
+        differences = []
+
+        if self.name != other.name:
+            differences.append(f"Name: {self.name} != {other.name}")
+        if self.course_type != other.course_type:
+            differences.append(f"Course Type: {self.course_type} != {other.course_type}")
+        if self.dietary_preference != other.dietary_preference:
+            differences.append(f"Dietary Preference: {self.dietary_preference} != {other.dietary_preference}")
+        if self.cuisine != other.cuisine:
+            differences.append(f"Cuisine: {self.cuisine} != {other.cuisine}")
+        if self.utility != other.utility:
+            differences.append(f"Utility: {self.utility} != {other.utility}")
+        if self.derivation != other.derivation:
+            differences.append(f"Derivation: {self.derivation} != {other.derivation}")
+        if self.evaluation != other.evaluation:
+            differences.append(f"Evaluation: {self.evaluation} != {other.evaluation}")
+        if self.UaS != other.UaS:
+            differences.append(f"UaS: {self.UaS} != {other.UaS}")
+        if self.UaF != other.UaF:
+            differences.append(f"UaF: {self.UaF} != {other.UaF}")
+        if self.success_count != other.success_count:
+            differences.append(f"Success Count: {self.success_count} != {other.success_count}")
+        if self.failure_count != other.failure_count:
+            differences.append(f"Failure Count: {self.failure_count} != {other.failure_count}")
+
+        ingredients1 = sorted(self.ingredients, key=lambda x: x['name'])
+        ingredients2 = sorted(other.ingredients, key=lambda x: x['name'])
+        if ingredients1 != ingredients2:
+            differences.append(f"Ingredients: {ingredients1} != {ingredients2}")
+
+        if self.instructions != other.instructions:
+            differences.append(f"Instructions: {self.instructions} != {other.instructions}")
+
+        return differences
+
 
 def parse_recipe_from_xml(xml_element):
     name = xml_element.findtext('name')

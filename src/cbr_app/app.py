@@ -40,7 +40,7 @@ def index():
 
         retrieved_recipe, adapted_recipe = cbr.run_query(query_format, request.form['recipe_name'])
 
-        return render_template('index.html', options=options, adapted_recipe=adapted_recipe)
+        return render_template('index.html', options=options, adapted_recipe=adapted_recipe, retrieved_recipe=retrieved_recipe, differences=retrieved_recipe.compare_with(adapted_recipe))
     return render_template('index.html', options=options)
 
 
