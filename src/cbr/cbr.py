@@ -29,12 +29,12 @@ class CBR:
         self.adapted_recipe = None
         self.sim_weights = {
             "dp_match": 1.0,
-            "ct_match": 1.0,
-            "cuisine_match": 1.0,
-            "ingr_match": 1.0,
-            "ingr_name_match": 1.0,
-            "ingr_basic_taste_match": 1.0,
-            "ingr_food_cat_match": 1.0
+            "ct_match": 0.85,
+            "cuisine_match": 0.85,
+            "ingr_match": 0.55,
+            "ingr_name_match": 0.45,
+            "ingr_basic_taste_match": 0.45,
+            "ingr_food_cat_match": 0.45
         }
 
 
