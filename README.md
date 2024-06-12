@@ -47,4 +47,4 @@ python src/main_test.py
 
 
 Test Example:
-![image](https://github.com/Barathaner/Case-Based-Reasoning-System-Prototyp/assets/40422666/fa99b7fe-51aa-449b-b5d4-d3fae04a0df0)
+![image](https://github.com/Barathaner/Case-Based-Reasoning-System-Prototyp/assets/40422666/09dc80c4-364c-4215-851f-f699a74314c7)
