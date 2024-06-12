@@ -111,6 +111,9 @@ class CBR:
 
         normalized_sim = self.sim / self.cumulative_norm_score if self.cumulative_norm_score else 1.0
         normalized_sim=normalized_sim * float(recipe.utility)
+
+        self.sim = 0
+        self.cumulative_norm_score = 0
         return normalized_sim
 
     def retrieve(self, query):
@@ -174,7 +177,7 @@ class CBR:
         
         
         if list_recipes:
-            print(f"Found {len(list_recipes)} recipes")
+            # print(f"Found {len(list_recipes)} recipes")
             #TODO: Before: sim_list = [self.similarity_recipe(constraints, rec) for rec in list_recipes], but constraints are empty. Do not understand.
             sim_list = [self.similarity_recipe(rec,constraints) for rec in list_recipes] #TODO: if the constraints are too restricted, error un similarity_recipe()
             max_indices = np.argwhere(np.array(sim_list) == np.amax(np.array(sim_list))).flatten().tolist()
@@ -324,7 +327,7 @@ class CBR:
 
     @staticmethod
     def _compute_utility(case):
-        return ((int(case.UaS) / (int(case.success_count) + 1e-5)) - (int(case.UaF) / (int(case.failure_count) + 1e-5)) + 1) / 2
+        return ((float(case.UaS) / (float(case.success_count) + 1e-5)) - (float(case.UaF) / (float(case.failure_count) + 1e-5)) + 1) / 2
 
     def forget_cases(self):
         for recipe in self.case_library.find_recipes_by_constraint_query(f".//cookingrecipe[utility < {self.UTILITY_THRESHOLD}]"):
@@ -359,26 +362,27 @@ class CBR:
 
     def evaluate(self, user_score):
         if user_score > self.EVALUATION_THRESHOLD:
-            self.adapted_recipe.evaluation = "success"
-            self.retrieved_recipe.UaS = str(int(self.retrieved_recipe.UaS) + 1)
-            self.retrieved_recipe.success_count = str(int(self.retrieved_recipe.success_count) + 1)
-            self.retrieved_recipe.utility = str(self._compute_utility(self.retrieved_recipe))
             for recipe in self.sim_recipes:
-                recipe.success_count = str(int(recipe.success_count) + 1)
-                recipe.utility = str(self._compute_utility(recipe))
+                self.adapted_recipe.evaluation = "success"
+                if recipe.name == self.retrieved_recipe.name:
+                    recipe.UaS = str(int(recipe.UaS) + 1)
+                    recipe.success_count = str(int(recipe.success_count) + 1)
+                    recipe.utility = str(self._compute_utility(recipe))
+                else:
+                    recipe.success_count = str(int(recipe.success_count) + 1)
+                    recipe.utility = str(self._compute_utility(recipe))
                 self.case_library.remove_recipe(recipe)
                 self.case_library.add_recipe(recipe)
         else:
             self.adapted_recipe.evaluation = "failure"
-            self.retrieved_recipe.UaF = str(int(self.retrieved_recipe.UaF) + 1)
-            self.retrieved_recipe.failure_count = str(int(self.retrieved_recipe.failure_count) + 1)
-            self.retrieved_recipe.utility = str(self._compute_utility(self.retrieved_recipe))
             for recipe in self.sim_recipes:
-                recipe.failure_count = str(int(recipe.failure_count) + 1)
-                recipe.utility = str(self._compute_utility(recipe))
+                if recipe.name == self.retrieved_recipe.name:
+                    recipe.UaF = str(int(recipe.UaF) + 1)
+                    recipe.failure_count = str(int(recipe.failure_count) + 1)
+                    recipe.utility = str(self._compute_utility(recipe))
+                else:
+                    recipe.failure_count = str(int(recipe.failure_count) + 1)
+                    recipe.utility = str(self._compute_utility(recipe))
                 self.case_library.remove_recipe(recipe)
                 self.case_library.add_recipe(recipe)
-
-        self.case_library.remove_recipe(self.retrieved_recipe)
-        self.case_library.add_recipe(self.retrieved_recipe)
         self.learn()

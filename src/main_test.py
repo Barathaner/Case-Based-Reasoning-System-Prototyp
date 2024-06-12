@@ -87,6 +87,7 @@ cl_lens = []
 
 for i in range(500):
     times.append(random_query(cbr))
+    print(f'Query n. {i} took time {times[-1]}')
     cl_lens.append(cbr.case_library.get_length())
 
 
