@@ -173,7 +173,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegan</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Thinly slice fruit</step>
               <step>In small bowl combine with salt, sugar, cinnamon and butter.</step>
@@ -642,7 +659,24 @@
             <course_type>starter</course_type>
             <dietary_preference>vegan</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>1. Bring two quarts water to boil. Add corn. Cook for two minutes.
                                 Remove. Reserve cooking water.</step>
@@ -1003,7 +1037,24 @@
             <course_type>side</course_type>
             <dietary_preference>vegan</dietary_preference>
             <cuisine>italian</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Place tomatoes and garlic in a blender and process until smooth.
                                 With blender running, slowly add the olive oil. Add tarragon, salt,
@@ -1492,7 +1543,24 @@
             <course_type>side</course_type>
             <dietary_preference>vegan</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Combine first 6 ingredients in a small jar; season vinaigrette to
                                 taste with salt and pepper. Shake to blend. DO AHEAD:</step>
@@ -2326,7 +2394,24 @@
             <course_type>main</course_type>
             <dietary_preference>vegan</dietary_preference>
             <cuisine>mexican</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>1. In a frying pan, warm oil over medium heat. Add garlic, onion,
                                 and red pepper and cook, stirring occasionally, until onion is
@@ -3324,7 +3409,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Butter 8x8 Pyrex dish and arrange pineapple slices in an
                                 overlapping circle (or as close as you can manage it). In small
@@ -3765,7 +3867,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Crust: Crush graham crackers fine; fold in 6 Tbsp.</step>
               <step>melted butter and 4 Tbsp.</step>
@@ -4459,7 +4578,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>1. Preheat your oven to 375 degrees.</step>
               <step>2. With your mixer on low and with the paddle attachment, beat
@@ -4714,7 +4850,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Preheat the oven to 350 degrees F. Arrange 8 (6-ounce) ramekins in
                                 a 9-inch by 13-inch baking pan and place in the oven to heat.</step>
@@ -4998,7 +5151,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Blend all ingredients on medium until creamy.</step>
             </instructions>
@@ -5015,7 +5185,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Combine sugar, corn syrup, milk and salt.</step>
               <step>Cook to soft boil. Remove from heat and add remaining ingredients.</step>
@@ -5093,7 +5280,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Finely grate enough orange zest to measure 1 teaspoon. Cut
                                 remaining peel and white pith from oranges with a sharp knife, then
@@ -5518,7 +5722,24 @@
             <course_type>starter</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>persian</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Heat 2 tablespoons of oil in a big nonstick pot and saute chopped
                                 onions over medium heat till golden. (Approximately 10 minutes.) Add
@@ -5736,7 +5957,24 @@
             <course_type>side</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>chinese</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Place onion, bouillon cubes and water in 1 1/2-quart casserole.</step>
               <step>Cook, covered, on Full power for 2 to 4 minutes or until tender.</step>
@@ -6256,7 +6494,24 @@
             <course_type>side</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Place cream cheese in a food processor and blend till creamy.
                                 While processor runs add salsa. I start with 1/2 cup. You are
@@ -6381,7 +6636,24 @@
             <course_type>side</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Gradually beat orange juice into Cool Whip until the mixture is
                                 creamy, but not thin.</step>
@@ -6467,7 +6739,24 @@
             <course_type>side</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Melt butter in 8-inch skillet; cook and stir rice, almonds and
                                 onion until almonds are golden brown, about 10 minutes.</step>
@@ -8199,7 +8488,24 @@
             <course_type>main</course_type>
             <dietary_preference>vegetarian</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Bring a large pot of lightly salted water to a boil.</step>
               <step>Add pasta and cook for 6 to 8 minutes or until al dente; drain.</step>
@@ -9272,7 +9578,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Preheat oven to 350 degrees. Butter a 9-by-5-by-3-inch loaf pan;
                                 set aside. In an electric mixer fitted with the paddle attachment,
@@ -9547,7 +9870,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>1. In a large mixing bowl, beat the shortening with a mixer for 30
                                 seconds.</step>
@@ -9615,7 +9955,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Combine all ingredients in order given and mix well.</step>
               <step>Pour into a greased glass pie pan and bake at 350° for 1 hour.</step>
@@ -10006,7 +10363,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>preheat oven to 375 degrees.</step>
               <step>Grease 15x10in jelly roll pan.</step>
@@ -10970,7 +11344,24 @@
             <course_type>dessert</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Preheat the oven to 350°F [180°C]. Line a rimmed baking sheet with
                                 parchment paper.</step>
@@ -12806,7 +13197,24 @@
             <course_type>side</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Rinse, trim and cut green beans in half. Bring a gallon of water
                                 and 2 tbsp of salt to a boil in an 8-quart saucepan. Add the beans
@@ -15613,7 +16021,24 @@
             <course_type>main</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>french</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Crepe Directions;</step>
               <step>1. In a blender, combine all of the ingredients and pulse for 10
@@ -16348,7 +16773,24 @@
             <course_type>main</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>aussie</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Pulse the flour, butter, salt and paprika in a food processor
                                 until it resembles breadcrumbs.</step>
@@ -16729,7 +17171,24 @@
             <course_type>main</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>indian</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Heat a teaspoon of coconut oil in a casserole pot or a large
                                 saucepan.</step>
@@ -17359,7 +17818,24 @@
             <course_type>main</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>american</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Heat the olive oil in a large pot over medium heat. Add the
                                 potatoes, leeks, and mushrooms. Saute the vegetables until softened,
@@ -19090,7 +19566,24 @@
             <course_type>main</course_type>
             <dietary_preference>omnivorous</dietary_preference>
             <cuisine>indonesian</cuisine>
-            <ingredients/>
+            <ingredients>
+            <ingredient amount="3.0" unit="g" basic_taste="neutral" food_category="vegetable">baked
+                potatoes</ingredient>
+            <ingredient amount="2.0" unit="g" basic_taste="fatty" food_category="dairy">butter or
+                margarine</ingredient>
+            <ingredient amount="2.0" unit="ml" basic_taste="neutral" food_category="dairy">milk</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">grated
+                parmesan cheese</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="sweet" food_category="vegetable">frozen
+                english peas, thawed</ingredient>
+            <ingredient amount="1.0" unit="g" basic_taste="spicy" food_category="vegetable">chipotle
+                chile peppers, minced</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="savory" food_category="meat">chopped
+                cooked chicken</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="meat">chopped ham</ingredient>
+            <ingredient amount="0.5" unit="g" basic_taste="salty" food_category="dairy">shredded
+                cheddar cheese</ingredient>
+        </ingredients>
             <instructions>
               <step>Pulse peanuts in a food processor until coarsely chopped, then
                                 transfer to a bowl.</step>

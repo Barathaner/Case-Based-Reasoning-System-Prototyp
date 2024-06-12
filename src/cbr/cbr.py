@@ -31,10 +31,10 @@ class CBR:
             "dp_match": 1.0,
             "ct_match": 1.0,
             "cuisine_match": 1.0,
-            "ingr_match": 0.5,
-            "ingr_name_match": 0.5,
-            "ingr_basic_taste_match": 0.5,
-            "ingr_food_cat_match": 0.5
+            "ingr_match": 1.0,
+            "ingr_name_match": 1.0,
+            "ingr_basic_taste_match": 1.0,
+            "ingr_food_cat_match": 1.0
         }
 
 
