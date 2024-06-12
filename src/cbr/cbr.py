@@ -27,16 +27,9 @@ class CBR:
         self.cumulative_norm_score=0
         self.sim=0
         self.adapted_recipe = None
-        self.sim_weights = {
-            "dp_match": 1.0,
-            "ct_match": 0.85,
-            "cuisine_match": 0.85,
-            "ingr_match": 0.55,
-            "ingr_name_match": 0.45,
-            "ingr_basic_taste_match": 0.45,
-            "ingr_food_cat_match": 0.45
-        }
-
+        self.sim_weights = {"dp_match":1,"ct_match":0.85,"cuisine_match":0.65,
+                            "ingr_match":0.5,"ingr_name_match":0.5,
+                            "ingr_basic_taste_match":0.5,"ingr_food_cat_match":0.5}
 
         if seed is not None:
             random.seed(seed)
@@ -72,7 +65,8 @@ class CBR:
             self.sim -= self.sim_weights[w]
             self.cumulative_norm_score += self.sim_weights[w]
         # In case the constraint is not fulfilled we add the weight to the normalization score
-        self.cumulative_norm_score += self.sim_weights[w]
+        else:
+            self.cumulative_norm_score += self.sim_weights[w]
 
     def similarity_recipe(self, recipe, constraints):
         """
