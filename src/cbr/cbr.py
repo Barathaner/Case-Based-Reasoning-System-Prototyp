@@ -24,11 +24,13 @@ class CBR:
         self.query = None
         self.retrieved_recipe = None
         self.sim_recipes = []
+        self.cumulative_norm_score=0
+        self.sim=0
         self.adapted_recipe = None
         self.sim_weights = {
-            "dp_match": 1,
-            "ct_match": 0.85,
-            "cuisine_match": 0.65,
+            "dp_match": 1.0,
+            "ct_match": 1.0,
+            "cuisine_match": 1.0,
             "ingr_match": 0.5,
             "ingr_name_match": 0.5,
             "ingr_basic_taste_match": 0.5,
@@ -51,26 +53,26 @@ class CBR:
     #########################################
     # Retrieve
     def update_sim1(self, sim, cumulative_norm_score, key, constraints, attribute, w):
-        if (len(constraints[key]['exclude']) > 0) or len(constraints[key]['include']) > 0:
-            if (len(constraints[key]['include']) > 0) and attribute in constraints[key]['include']:
-                sim += self.sim_weights[w]
-                cumulative_norm_score += self.sim_weights[w]
-            elif (len(constraints[key]['exclude']) > 0) and attribute in constraints[key]['exclude']:
-                sim -= self.sim_weights[w]
-                cumulative_norm_score += self.sim_weights[w]
-        else:
-            sim += self.sim_weights[w]
-            cumulative_norm_score += self.sim_weights[w]
+            constrinclude=len(constraints[key]['include'])
+            if (len(constraints[key]['exclude']) > 0) or (len(constraints[key]['include']) > 0):
+                if (len(constraints[key]['include']) > 0) and attribute in constraints[key]['include']:
+                    self.sim += self.sim_weights[w]
+                    self.cumulative_norm_score += self.sim_weights[w]
+                elif (len(constraints[key]['exclude']) > 0) and attribute in constraints[key]['exclude']:
+                    self.sim -= self.sim_weights[w]
+                    self.cumulative_norm_score += self.sim_weights[w]
+                else:
+                    self.cumulative_norm_score += self.sim_weights[w]
 
     def update_sim2(self, sim, cumulative_norm_score, constraints, attribute, w, ingredient):
         if (len(constraints['ingredients']['include'][attribute]) > 0) and ingredient[attribute] in constraints['ingredients']['include'][attribute]:
-            sim += self.sim_weights[w]
-            cumulative_norm_score += self.sim_weights[w]
+            self.sim += self.sim_weights[w]
+            self.cumulative_norm_score += self.sim_weights[w]
         elif (len(constraints['ingredients']['exclude'][attribute]) > 0) and ingredient[attribute] in constraints['ingredients']['exclude'][attribute]:
-            sim -= self.sim_weights[w]
-            cumulative_norm_score += self.sim_weights[w]
+            self.sim -= self.sim_weights[w]
+            self.cumulative_norm_score += self.sim_weights[w]
         # In case the constraint is not fulfilled we add the weight to the normalization score
-        cumulative_norm_score += self.sim_weights[w]
+        self.cumulative_norm_score += self.sim_weights[w]
 
     def similarity_recipe(self, recipe, constraints):
         """
@@ -79,8 +81,8 @@ class CBR:
         and increase or decrease the similarity score according to the feature weight.
 
         """
-        sim = 0
-        cumulative_norm_score = 0
+        self.sim = 0.0
+        self.cumulative_norm_score = 0.0
         recipe_ingredients = recipe.ingredients
         recipe_cuisine = recipe.cuisine
         recipe_course_type = recipe.course_type
@@ -88,27 +90,28 @@ class CBR:
 
         for key in constraints:
             if key == "dietary_preference":
-                self.update_sim1(sim, cumulative_norm_score, key, constraints, recipe_dietary_preference, 'dp_match')      
+                self.update_sim1(self.sim, self.cumulative_norm_score, key, constraints, recipe_dietary_preference, 'dp_match')      
             if key == "course_type":
-                self.update_sim1(sim, cumulative_norm_score, key, constraints, recipe_course_type, 'ct_match')
+                self.update_sim1(self.sim, self.cumulative_norm_score, key, constraints, recipe_course_type, 'ct_match')
             if key == "cuisine":
-                self.update_sim1(sim, cumulative_norm_score, key, constraints, recipe_cuisine, 'cuisine_match')
+                self.update_sim1(self.sim, self.cumulative_norm_score, key, constraints, recipe_cuisine, 'cuisine_match')
             if key == "ingredients":
                 if (len(constraints[key]['include']['name']) > 0) or (len(constraints[key]['exclude']['name']) > 0):
                     for ingredient in recipe_ingredients:
-                        self.update_sim2(sim, cumulative_norm_score, constraints, 'name', 'ingr_name_match', ingredient)
-                if len(constraints[key]['include']['basic_taste']) > 0 or len(constraints[key]['exclude']['basic_taste']) > 0:
+                        self.update_sim2(self.sim, self.cumulative_norm_score, constraints, 'name', 'ingr_name_match', ingredient)
+                if (len(constraints[key]['include']['basic_taste']) > 0) or (len(constraints[key]['exclude']['basic_taste']) > 0):
                     for ingredient in recipe_ingredients:
-                        self.update_sim2(sim, cumulative_norm_score, constraints, 'basic_taste', 'ingr_basic_taste_match', ingredient)
-                if len(constraints[key]['include']['food_category']) > 0 or len(constraints[key]['exclude']['food_category']) > 0:
+                        self.update_sim2(self.sim, self.cumulative_norm_score, constraints, 'basic_taste', 'ingr_basic_taste_match', ingredient)
+                if (len(constraints[key]['include']['food_category']) > 0) or (len(constraints[key]['exclude']['food_category']) > 0):
                     for ingredient in recipe_ingredients:
-                        self.update_sim2(sim, cumulative_norm_score, constraints, 'food_category', 'ingr_food_cat_match', ingredient)
+                        self.update_sim2(self.sim, self.cumulative_norm_score, constraints, 'food_category', 'ingr_food_cat_match', ingredient)
                 else:  
-                    sim += self.sim_weights["ingr_match"]
-                    cumulative_norm_score += self.sim_weights["ingr_match"]     
+                    self.sim += self.sim_weights["ingr_match"]
+                    self.cumulative_norm_score += self.sim_weights["ingr_match"]     
 
-        normalized_sim = sim / cumulative_norm_score if cumulative_norm_score else 1.0
-        return normalized_sim * float(recipe.utility)
+        normalized_sim = self.sim / self.cumulative_norm_score if self.cumulative_norm_score else 1.0
+        normalized_sim=normalized_sim * float(recipe.utility)
+        return normalized_sim
 
     def retrieve(self, query):
         constraints = query.get_data()
