@@ -3,6 +3,17 @@ from src.cbr.query import Query
 import random
 import string
 import time
+from matplotlib import pyplot as plt
+
+
+def plotter(values, ylabel, xlabel, title, path):
+    plt.title(title)
+    plt.plot(values)
+    plt.ylabel(ylabel)
+    plt.xlabel(xlabel)
+    plt.savefig(path)
+    plt.clf()
+    plt.close()
 
 
 def random_subset(items: list):
@@ -57,7 +68,7 @@ def random_query(cbr: CBR):
     characters = string.ascii_letters + string.digits
 
     # Generate a random string of length 20
-    random_string = ''.join(random.choices(characters, k=10))
+    random_string = ''.join(random.choices(characters, k=15))
 
     t0 = time.time()
 
@@ -71,5 +82,13 @@ def random_query(cbr: CBR):
 
 cbr = CBR()
 
-for i in range(100):
-    print(random_query(cbr))
+times = []
+cl_lens = []
+
+for i in range(500):
+    times.append(random_query(cbr))
+    cl_lens.append(cbr.case_library.get_length())
+
+
+plotter(times, 'time(s)', '#queries', 'N. queries performance', 'time.png')
+plotter(cl_lens, 'Case Library items', '#queries', 'N. items performance', 'items.png')
